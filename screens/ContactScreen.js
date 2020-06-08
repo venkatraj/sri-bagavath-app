@@ -11,4 +11,4 @@ const ContactScreen = (props) => {
 
 const styles = StyleSheet.create({});
 
-export default ContactScreen.js;
+export default ContactScreen;
