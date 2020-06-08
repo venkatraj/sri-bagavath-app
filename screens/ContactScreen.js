@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet, Linking } from 'react-native';
+import { Button, View, StyleSheet, Linking } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 
 const ContactScreen = (props) => {
@@ -46,7 +46,8 @@ const ContactScreen = (props) => {
 
 const styles = StyleSheet.create({
   cardItem: {
-    marginBottom: 20,
+    margin: 20,
+    marginBottom: 0,
   },
   fixToText: {
     flexDirection: 'row',
