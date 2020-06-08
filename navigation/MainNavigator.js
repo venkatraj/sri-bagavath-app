@@ -2,6 +2,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+import StackNavigator from './StackNavigator';
+import Header from '../components/Header';
 import HomeScreen from '../screens/HomeScreen';
 import AboutScreen from '../screens/AboutScreen';
 import ShopScreen from '../screens/ShopScreen';
@@ -15,14 +17,8 @@ const Drawer = createDrawerNavigator();
 const MainNavigator = (props) => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="home">
-        <Drawer.Screen name="home" component={HomeScreen} />
-        <Drawer.Screen name="about" component={AboutScreen} />
-        <Drawer.Screen name="shop" component={ShopScreen} />
-        <Drawer.Screen name="events" component={EventsScreen} />
-        <Drawer.Screen name="magazines" component={MagazinesScreen} />
-        <Drawer.Screen name="ebooks" component={EBooksScreen} />
-        <Drawer.Screen name="contact" component={ContactScreen} />
+      <Drawer.Navigator>
+        <Drawer.Screen name="home" component={StackNavigator} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
