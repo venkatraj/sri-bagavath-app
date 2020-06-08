@@ -18,7 +18,7 @@ const AboutNavigator = (props) => {
         };
       }}
     >
-      <Stack.Screen name="about" component={AboutScreen} />
+      <Stack.Screen name="About" component={AboutScreen} />
     </Stack.Navigator>
   );
 };
