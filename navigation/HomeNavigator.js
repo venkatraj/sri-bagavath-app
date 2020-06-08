@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Header from '../components/Header';
@@ -13,11 +12,11 @@ import ContactScreen from '../screens/ContactScreen';
 
 const Stack = createStackNavigator();
 
-const StackNavigator = (props) => {
+const HomeNavigator = (props) => {
+  const { navigation } = props;
   return (
     <Stack.Navigator
-      screenOptions={(props) => {
-        const { navigation } = props;
+      screenOptions={() => {
         const handleOnPress = () => navigation.toggleDrawer();
         return {
           header: () => <Header onPress={handleOnPress} />,
@@ -35,4 +34,4 @@ const StackNavigator = (props) => {
   );
 };
 
-export default StackNavigator;
+export default HomeNavigator;
