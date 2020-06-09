@@ -5,14 +5,14 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 
-import HomeNavigator from './HomeNavigator';
-import AboutNavigator from './AboutNavigator';
-import ShopNavigator from './ShopNavigator';
-import EventsNavigator from './EventsNavigator';
-import MagazinesNavigator from './MagazinesNavigator';
-import EBooksNavigator from './EBooksNavigator';
-import ContactNavigator from './ContactNavigator';
-import AdminNavigator from './AdminNavigator';
+import HomeNavigator from './public/HomeNavigator';
+import AboutNavigator from './public/AboutNavigator';
+import ShopNavigator from './public/ShopNavigator';
+import EventsNavigator from './public/EventsNavigator';
+import MagazinesNavigator from './public/MagazinesNavigator';
+import EBooksNavigator from './public/EBooksNavigator';
+import ContactNavigator from './public/ContactNavigator';
+import AdminNavigator from './admin/AdminNavigator';
 
 const Drawer = createDrawerNavigator();
 

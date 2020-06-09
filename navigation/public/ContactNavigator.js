@@ -1,12 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HeaderDrawer from '../components/HeaderDrawer';
-import EBooksScreen from '../screens/EBooksScreen';
+import HeaderDrawer from '../../components/HeaderDrawer';
+import ContactScreen from '../../screens/public/ContactScreen';
 
 const Stack = createStackNavigator();
 
-const EBooksNavigator = (props) => {
+const ContactNavigator = (props) => {
   const { navigation } = props;
 
   return (
@@ -18,9 +18,9 @@ const EBooksNavigator = (props) => {
         };
       }}
     >
-      <Stack.Screen name="EBooks" component={EBooksScreen} />
+      <Stack.Screen name="Contact" component={ContactScreen} />
     </Stack.Navigator>
   );
 };
 
-export default EBooksNavigator;
+export default ContactNavigator;

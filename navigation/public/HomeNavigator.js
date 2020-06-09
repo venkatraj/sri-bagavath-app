@@ -1,15 +1,15 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HeaderDrawer from '../components/HeaderDrawer';
-import HeaderBack from '../components/HeaderBack';
-import HomeScreen from '../screens/HomeScreen';
-import AboutScreen from '../screens/AboutScreen';
-import ShopScreen from '../screens/ShopScreen';
-import EventsScreen from '../screens/EventsScreen';
-import MagazinesScreen from '../screens/MagazinesScreen';
-import EBooksScreen from '../screens/EBooksScreen';
-import ContactScreen from '../screens/ContactScreen';
+import HeaderDrawer from '../../components/HeaderDrawer';
+import HeaderBack from '../../components/HeaderBack';
+import HomeScreen from '../../screens/public/HomeScreen';
+import AboutScreen from '../../screens/public/AboutScreen';
+import ShopScreen from '../../screens/public/ShopScreen';
+import EventsScreen from '../../screens/public/EventsScreen';
+import MagazinesScreen from '../../screens/public/MagazinesScreen';
+import EBooksScreen from '../../screens/public/EBooksScreen';
+import ContactScreen from '../../screens/public/ContactScreen';
 
 const HomeStack = createStackNavigator();
 

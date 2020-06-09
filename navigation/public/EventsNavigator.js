@@ -1,12 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HeaderDrawer from '../components/HeaderDrawer';
-import AboutScreen from '../screens/AboutScreen';
+import HeaderDrawer from '../../components/HeaderDrawer';
+import EventsScreen from '../../screens/public/EventsScreen';
 
 const Stack = createStackNavigator();
 
-const AboutNavigator = (props) => {
+const EventsNavigator = (props) => {
   const { navigation } = props;
 
   return (
@@ -18,9 +18,9 @@ const AboutNavigator = (props) => {
         };
       }}
     >
-      <Stack.Screen name="About" component={AboutScreen} />
+      <Stack.Screen name="events" component={EventsScreen} />
     </Stack.Navigator>
   );
 };
 
-export default AboutNavigator;
+export default EventsNavigator;

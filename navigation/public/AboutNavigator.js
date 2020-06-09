@@ -1,12 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HeaderDrawer from '../components/HeaderDrawer';
-import MagazinesScreen from '../screens/MagazinesScreen';
+import HeaderDrawer from '../../components/HeaderDrawer';
+import AboutScreen from '../../screens/public/AboutScreen';
 
 const Stack = createStackNavigator();
 
-const MagazinesNavigator = (props) => {
+const AboutNavigator = (props) => {
   const { navigation } = props;
 
   return (
@@ -18,9 +18,9 @@ const MagazinesNavigator = (props) => {
         };
       }}
     >
-      <Stack.Screen name="Magazines" component={MagazinesScreen} />
+      <Stack.Screen name="About" component={AboutScreen} />
     </Stack.Navigator>
   );
 };
 
-export default MagazinesNavigator;
+export default AboutNavigator;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HeaderDrawer from '../components/HeaderDrawer';
-import ShopScreen from '../screens/ShopScreen';
+import HeaderDrawer from '../../components/HeaderDrawer';
+import ShopScreen from '../../screens/public/ShopScreen';
 
 const Stack = createStackNavigator();
 

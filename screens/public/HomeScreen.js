@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, View, Text, StyleSheet } from 'react-native';
 
-import TouchableCard from '../components/TouchableCard';
+import TouchableCard from '../../components/TouchableCard';
 
 const HomeScreen = (props) => {
   const { navigation } = props;

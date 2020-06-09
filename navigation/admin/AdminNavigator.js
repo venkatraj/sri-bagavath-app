@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HeaderDrawer from '../components/HeaderDrawer';
-import HeaderBack from '../components/HeaderBack';
-import AdminScreen from '../screens/admin/AdminScreen';
-import ShopAdminScreen from '../screens/admin/ShopScreen';
-import EventsAdminScreen from '../screens/admin/EventsScreen';
-import MagazinesAdminScreen from '../screens/admin/MagazinesScreen';
-import EBooksAdminScreen from '../screens/admin/EBooksScreen';
+import HeaderDrawer from '../../components/HeaderDrawer';
+import HeaderBack from '../../components/HeaderBack';
+import AdminScreen from '../../screens/admin/AdminScreen';
+import ShopAdminScreen from '../../screens/admin/ShopScreen';
+import EventsAdminScreen from '../../screens/admin/EventsScreen';
+import MagazinesAdminScreen from '../../screens/admin/MagazinesScreen';
+import EBooksAdminScreen from '../../screens/admin/EBooksScreen';
 
 const Stack = createStackNavigator();
 
