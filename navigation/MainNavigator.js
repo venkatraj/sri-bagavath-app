@@ -12,6 +12,7 @@ import EventsNavigator from './EventsNavigator';
 import MagazinesNavigator from './MagazinesNavigator';
 import EBooksNavigator from './EBooksNavigator';
 import ContactNavigator from './ContactNavigator';
+import AdminNavigator from './AdminNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -35,6 +36,7 @@ const MainNavigator = (props) => {
       <Drawer.Screen name="Magazines" component={MagazinesNavigator} />
       <Drawer.Screen name="EBooks" component={EBooksNavigator} />
       <Drawer.Screen name="Contact" component={ContactNavigator} />
+      <Drawer.Screen name="Admin" component={AdminNavigator} />
     </Drawer.Navigator>
   );
 };

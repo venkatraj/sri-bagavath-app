@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import HeaderDrawer from '../components/HeaderDrawer';
+import HeaderBack from '../components/HeaderBack';
 import AdminScreen from '../screens/admin/AdminScreen';
 import ShopAdminScreen from '../screens/admin/ShopScreen';
 import EventsAdminScreen from '../screens/admin/EventsScreen';
@@ -22,10 +23,34 @@ const HomeNavigator = (props) => {
       }}
     >
       <Stack.Screen name="HomeAdmin" component={AdminScreen} />
-      <Stack.Screen name="ShopAdmin" component={ShopAdminScreen} />
-      <Stack.Screen name="EventsAdmin" component={EventsAdminScreen} />
-      <Stack.Screen name="MagazinesAdmin" component={MagazinesAdminScreen} />
-      <Stack.Screen name="EbooksAdmin" component={EBooksAdminScreen} />
+      <Stack.Screen
+        name="ShopAdmin"
+        component={ShopAdminScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+        }}
+      />
+      <Stack.Screen
+        name="EventsAdmin"
+        component={EventsAdminScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+        }}
+      />
+      <Stack.Screen
+        name="MagazinesAdmin"
+        component={MagazinesAdminScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+        }}
+      />
+      <Stack.Screen
+        name="EBooksAdmin"
+        component={EBooksAdminScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+        }}
+      />
     </Stack.Navigator>
   );
 };
