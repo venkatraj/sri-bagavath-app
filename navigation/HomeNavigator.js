@@ -1,7 +1,9 @@
 import React from 'react';
+import { View, SafeAreaView, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Header from '../components/Header';
+import HeaderDrawer from '../components/HeaderDrawer';
+import HeaderBack from '../components/HeaderBack';
 import HomeScreen from '../screens/HomeScreen';
 import AboutScreen from '../screens/AboutScreen';
 import ShopScreen from '../screens/ShopScreen';
@@ -10,27 +12,63 @@ import MagazinesScreen from '../screens/MagazinesScreen';
 import EBooksScreen from '../screens/EBooksScreen';
 import ContactScreen from '../screens/ContactScreen';
 
-const Stack = createStackNavigator();
+const HomeStack = createStackNavigator();
 
 const HomeNavigator = (props) => {
   const { navigation } = props;
   return (
-    <Stack.Navigator
+    <HomeStack.Navigator
       screenOptions={() => {
         const handleOnPress = () => navigation.toggleDrawer();
         return {
-          header: () => <Header onPress={handleOnPress} />,
+          header: () => <HeaderDrawer onPress={handleOnPress} />,
         };
       }}
     >
-      <Stack.Screen name="home" component={HomeScreen} />
-      <Stack.Screen name="about" component={AboutScreen} />
-      <Stack.Screen name="shop" component={ShopScreen} />
-      <Stack.Screen name="events" component={EventsScreen} />
-      <Stack.Screen name="magazines" component={MagazinesScreen} />
-      <Stack.Screen name="ebooks" component={EBooksScreen} />
-      <Stack.Screen name="contact" component={ContactScreen} />
-    </Stack.Navigator>
+      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen
+        name="About"
+        component={AboutScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+        }}
+      />
+      <HomeStack.Screen
+        name="Shop"
+        component={ShopScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+        }}
+      />
+      <HomeStack.Screen
+        name="Events"
+        component={EventsScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+        }}
+      />
+      <HomeStack.Screen
+        name="Magazines"
+        component={MagazinesScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+        }}
+      />
+      <HomeStack.Screen
+        name="EBooks"
+        component={EBooksScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+        }}
+      />
+      <HomeStack.Screen
+        name="Contact"
+        component={ContactScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+        }}
+      />
+    </HomeStack.Navigator>
   );
 };
 

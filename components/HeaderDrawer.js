@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Appbar } from 'react-native-paper';
 
-const Header = (props) => {
+const HeaderDrawer = (props) => {
   const { onPress } = props;
   return (
     <Appbar.Header>
@@ -12,4 +12,4 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+export default HeaderDrawer;

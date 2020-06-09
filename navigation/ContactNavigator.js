@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Header from '../components/Header';
+import HeaderDrawer from '../components/HeaderDrawer';
 import ContactScreen from '../screens/ContactScreen';
 
 const Stack = createStackNavigator();
@@ -14,7 +14,7 @@ const ContactNavigator = (props) => {
       screenOptions={() => {
         const handleOnPress = () => navigation.toggleDrawer();
         return {
-          header: () => <Header onPress={handleOnPress} />,
+          header: () => <HeaderDrawer onPress={handleOnPress} />,
         };
       }}
     >

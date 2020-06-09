@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 
-import MainNavigator from './navigation/MainNavigator';
+import AppNavigator from './navigation/AppNavigator';
 
 export default function App() {
   return (
     <PaperProvider>
-      <MainNavigator />
+      <AppNavigator />
     </PaperProvider>
   );
 }

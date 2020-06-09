@@ -1,9 +1,9 @@
 import React from 'react';
 import { FlatList, View, Text, StyleSheet } from 'react-native';
 
-import TouchableCard from '../components/TouchableCard';
+import TouchableCard from '../../components/TouchableCard';
 
-const HomeScreen = (props) => {
+const AdminScreen = (props) => {
   const { navigation } = props;
   const onPressHandler = (title) => {
     navigation.navigate(title);
@@ -11,32 +11,24 @@ const HomeScreen = (props) => {
   const screens = [
     {
       id: 'p1',
-      title: 'About',
+      title: 'ShopAdmin',
     },
     {
       id: 'p2',
-      title: 'Shop',
+      title: 'EventsAdmin',
     },
     {
       id: 'p3',
-      title: 'Events',
+      title: 'MagazinesAdmin',
     },
     {
       id: 'p4',
-      title: 'Magazines',
-    },
-    {
-      id: 'p5',
-      title: 'EBooks',
-    },
-    {
-      id: 'p6',
-      title: 'Contact',
+      title: 'EBooksAdmin',
     },
   ];
 
   const renderCards = (itemData) => {
-    const { title } = itemData.item;
+    const { title, screen } = itemData.item;
     return <TouchableCard title={title} onPress={onPressHandler} />;
   };
 
@@ -56,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default AdminScreen;
