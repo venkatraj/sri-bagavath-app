@@ -1,14 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Provider as StoreProvider } from 'react-redux';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 import AppNavigator from './navigation/AppNavigator';
+import configureStore from './store/configureStore';
+import populateData from './data/populate';
+
+const store = configureStore();
+populateData(store);
+console.log(store.getState());
 
 export default function App() {
   return (
-    <PaperProvider>
-      <AppNavigator />
-    </PaperProvider>
+    <StoreProvider store={store}>
+      <PaperProvider>
+        <AppNavigator />
+      </PaperProvider>
+    </StoreProvider>
   );
 }
 

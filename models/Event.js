@@ -1,10 +1,10 @@
 class Event {
-  constructor(id, name, host, mode, venue = null) {
+  constructor(id, name, host, venue, isOffline = true) {
     this.id = id;
     this.name = name;
     this.host = host;
-    this.mode = mode;
     this.venue = venue;
+    this.isOffline = isOffline;
   }
 }
 
