@@ -1,12 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+
+import MagazineItem from '../../components/MagazineItem';
 
 const MagazinesAdminScreen = (props) => {
-  return (
-    <View>
-      <Text>MagazinesAdminScreen</Text>
-    </View>
-  );
+  const magazines = useSelector((state) => state.magazines);
+
+  const renderMagazine = (itemData) => {
+    return <MagazineItem magazineData={itemData.item} />;
+  };
+
+  return <FlatList data={magazines} renderItem={renderMagazine} />;
 };
 
 const styles = StyleSheet.create({});

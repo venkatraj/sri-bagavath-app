@@ -1,14 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
-const EventsScreen = (props) => {
-  return (
-    <View>
-      <Text>EventsScreen</Text>
-    </View>
-  );
+import EventItem from '../../components/EventItem';
+
+const EventsAdminScreen = (props) => {
+  const events = useSelector((state) => state.events);
+
+  const renderEvent = (itemData) => {
+    return <EventItem eventData={itemData.item} />;
+  };
+
+  return <FlatList data={events} renderItem={renderEvent} />;
 };
 
 const styles = StyleSheet.create({});
 
-export default EventsScreen;
+export default EventsAdminScreen;
