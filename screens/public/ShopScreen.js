@@ -1,12 +1,25 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+
+import ProductItem from '../../components/ProductItem';
 
 const ShopScreen = (props) => {
-  return (
-    <View>
-      <Text>ShopScreen</Text>
-    </View>
-  );
+  const { navigation } = props;
+  const products = useSelector((state) => state.products);
+
+  const onPress = (product) => {
+    navigation.navigate('Shop', {
+      screen: 'ProductDetailsScreen',
+      params: { product },
+    });
+  };
+
+  const renderProduct = (itemData) => {
+    return <ProductItem productData={itemData.item} onPress={onPress} />;
+  };
+
+  return <FlatList data={products} renderItem={renderProduct} />;
 };
 
 const styles = StyleSheet.create({});

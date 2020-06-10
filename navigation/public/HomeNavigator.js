@@ -24,44 +24,45 @@ const HomeNavigator = (props) => {
         };
       }}
     >
-      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
       <HomeStack.Screen
-        name="About"
+        name="AboutScreen"
         component={AboutScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,
+          title: 'About',
         }}
       />
       <HomeStack.Screen
-        name="Shop"
+        name="ShopScreen"
         component={ShopScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,
         }}
       />
       <HomeStack.Screen
-        name="Events"
+        name="EventsScreen"
         component={EventsScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,
         }}
       />
       <HomeStack.Screen
-        name="Magazines"
+        name="MagazinesScreen"
         component={MagazinesScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,
         }}
       />
       <HomeStack.Screen
-        name="EBooks"
+        name="EBooksScreen"
         component={EBooksScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,
         }}
       />
       <HomeStack.Screen
-        name="Contact"
+        name="ContactScreen"
         component={ContactScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,

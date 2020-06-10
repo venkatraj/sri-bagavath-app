@@ -4,9 +4,8 @@ import { Title } from 'react-native-paper';
 
 const TouchableCard = (props) => {
   const { title, screen, onPress } = props;
-  // console.log(onPress);
   return (
-    <TouchableOpacity style={styles.gridItem} onPress={() => onPress(title)}>
+    <TouchableOpacity style={styles.gridItem} onPress={() => onPress(screen)}>
       <View>
         <Title>{title}</Title>
       </View>
