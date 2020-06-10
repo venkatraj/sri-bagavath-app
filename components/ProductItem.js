@@ -19,7 +19,6 @@ const ProductItem = (props) => {
           onPress={() => {
             onPress(product);
           }}
-          productData={product}
         >
           View Details
         </Button>
