@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { Button, FlatList, View, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import EBookItem from '../../components/EBookItem';
@@ -8,7 +8,12 @@ const EBooksAdminScreen = (props) => {
   const ebooks = useSelector((state) => state.ebooks);
 
   const renderEBook = (itemData) => {
-    return <EBookItem ebookData={itemData.item} />;
+    return (
+      <View>
+        <EBookItem ebookData={itemData.item} />
+        <Button onPress={() => {}} title="Dummy Button" />
+      </View>
+    );
   };
 
   return <FlatList data={ebooks} renderItem={renderEBook} />;

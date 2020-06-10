@@ -11,7 +11,7 @@ import EBooksAdminScreen from '../../screens/admin/EBooksScreen';
 
 const Stack = createStackNavigator();
 
-const HomeNavigator = (props) => {
+const AdminNavigator = (props) => {
   const { navigation } = props;
   return (
     <Stack.Navigator
@@ -22,7 +22,7 @@ const HomeNavigator = (props) => {
         };
       }}
     >
-      <Stack.Screen name="HomeAdmin" component={AdminScreen} />
+      <Stack.Screen name="AdminScreen" component={AdminScreen} />
       <Stack.Screen
         name="ShopAdmin"
         component={ShopAdminScreen}
@@ -55,4 +55,4 @@ const HomeNavigator = (props) => {
   );
 };
 
-export default HomeNavigator;
+export default AdminNavigator;
