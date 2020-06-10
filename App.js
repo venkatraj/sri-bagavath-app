@@ -9,7 +9,7 @@ import populateData from './data/populate';
 
 const store = configureStore();
 populateData(store);
-console.log(store.getState().products);
+// console.log(store.getState().products);
 
 export default function App() {
   return (

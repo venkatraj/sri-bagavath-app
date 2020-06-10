@@ -2,14 +2,16 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Card, Button, Title } from 'react-native-paper';
 
+import defaultStyles from '../theme/defaultStyles';
+
 const EBookItem = (props) => {
   const { title, url, description } = props.ebookData;
   return (
-    <Card style={styles.ebookItem}>
-      <Card.Content style={styles.centered}>
+    <Card style={defaultStyles.item}>
+      <Card.Content style={defaultStyles.centered}>
         <Title>{title}</Title>
       </Card.Content>
-      <Card.Actions style={styles.spacedButtons}>
+      <Card.Actions style={defaultStyles.rowSpaced}>
         <Button>View Details</Button>
         <Button onPress={() => {}}>Download</Button>
       </Card.Actions>
@@ -17,15 +19,6 @@ const EBookItem = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  ebookItem: {
-    marginHorizontal: 20,
-    marginVertical: 10,
-  },
-  centered: {
-    alignItems: 'center',
-  },
-  spacedButtons: { justifyContent: 'space-between' },
-});
+const styles = StyleSheet.create({});
 
 export default EBookItem;
