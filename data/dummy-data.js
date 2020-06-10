@@ -1,5 +1,6 @@
 import Event from '../models/Event';
 import Magazine from '../models/Magazine';
+import EBook from '../models/EBook';
 
 const EVENTS = [
   new Event(1, 'Gnana Muham 1', 'Sri Bagavath', 'Bhavan', new Date()),
@@ -62,4 +63,19 @@ const MAGAZINES = [
   new Magazine(36, new Date('2017-12'), 'some url here'),
 ];
 
-export { EVENTS, MAGAZINES };
+const EBOOKS = [
+  new EBook(1, 'Book one', 'some url here'),
+  new EBook(2, 'Book two', 'some url here'),
+  new EBook(3, 'Book three', 'some url here'),
+  new EBook(4, 'Book four', 'some url here'),
+  new EBook(5, 'Book five', 'some url here'),
+  new EBook(6, 'Book six', 'some url here'),
+  new EBook(7, 'Book seven', 'some url here'),
+  new EBook(8, 'Book eight', 'some url here'),
+  new EBook(9, 'Book nine', 'some url here'),
+  new EBook(10, 'Book ten', 'some url here'),
+  new EBook(11, 'Book eleven', 'some url here'),
+  new EBook(12, 'Book twelve', 'some url here'),
+];
+
+export { EVENTS, MAGAZINES, EBOOKS };
