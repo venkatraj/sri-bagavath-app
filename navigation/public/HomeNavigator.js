@@ -5,7 +5,7 @@ import HeaderDrawer from '../../components/HeaderDrawer';
 import HeaderBack from '../../components/HeaderBack';
 import HomeScreen from '../../screens/public/HomeScreen';
 import AboutScreen from '../../screens/public/AboutScreen';
-import ShopScreen from '../../screens/public/ShopScreen';
+import ShopNavigator from './ShopNavigator';
 import EventsScreen from '../../screens/public/EventsScreen';
 import MagazinesScreen from '../../screens/public/MagazinesScreen';
 import EBooksScreen from '../../screens/public/EBooksScreen';
@@ -26,7 +26,7 @@ const HomeNavigator = (props) => {
     >
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
       <HomeStack.Screen
-        name="AboutScreen"
+        name="About"
         component={AboutScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,
@@ -34,35 +34,35 @@ const HomeNavigator = (props) => {
         }}
       />
       <HomeStack.Screen
-        name="ShopScreen"
-        component={ShopScreen}
+        name="Shop"
+        component={ShopNavigator}
         options={{
           header: (props) => <HeaderBack {...props} />,
         }}
       />
       <HomeStack.Screen
-        name="EventsScreen"
+        name="Events"
         component={EventsScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,
         }}
       />
       <HomeStack.Screen
-        name="MagazinesScreen"
+        name="Magazines"
         component={MagazinesScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,
         }}
       />
       <HomeStack.Screen
-        name="EBooksScreen"
+        name="EBooks"
         component={EBooksScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,
         }}
       />
       <HomeStack.Screen
-        name="ContactScreen"
+        name="Contact"
         component={ContactScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,

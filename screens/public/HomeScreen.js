@@ -12,32 +12,32 @@ const HomeScreen = (props) => {
     {
       id: 'p1',
       title: 'About',
-      screen: 'AboutScreen',
+      screen: 'About',
     },
     {
       id: 'p2',
       title: 'Shop',
-      screen: 'ShopScreen',
+      screen: 'Shop',
     },
     {
       id: 'p3',
       title: 'Events',
-      screen: 'EventsScreen',
+      screen: 'Events',
     },
     {
       id: 'p4',
       title: 'Magazines',
-      screen: 'MagazinesScreen',
+      screen: 'Magazines',
     },
     {
       id: 'p5',
       title: 'EBooks',
-      screen: 'EBooksScreen',
+      screen: 'EBooks',
     },
     {
       id: 'p6',
       title: 'Contact',
-      screen: 'ContactScreen',
+      screen: 'Contact',
     },
   ];
 

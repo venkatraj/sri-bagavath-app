@@ -9,8 +9,8 @@ const ShopScreen = (props) => {
   const products = useSelector((state) => state.products);
 
   const onPress = (product) => {
-    navigation.navigate('Shop', {
-      screen: 'ProductDetailsScreen',
+    navigation.push('Shop', {
+      screen: 'ProductDetails',
       params: { product },
     });
   };

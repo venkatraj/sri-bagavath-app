@@ -12,18 +12,10 @@ const ShopNavigator = (props) => {
   const { navigation } = props;
 
   return (
-    <Stack.Navigator
-      screenOptions={() => {
-        const handleOnPress = () => navigation.toggleDrawer();
-        return {
-          header: () => <HeaderDrawer onPress={handleOnPress} />,
-        };
-      }}
-      initialRouteName="ShopScreen"
-    >
+    <Stack.Navigator headerMode="none">
       <Stack.Screen name="ShopScreen" component={ShopScreen} />
       <Stack.Screen
-        name="ProductDetailsScreen"
+        name="ProductDetails"
         component={ProductDetailsScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,

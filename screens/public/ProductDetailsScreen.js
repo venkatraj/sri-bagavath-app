@@ -20,7 +20,7 @@ const ProductDetailsScreen = (props) => {
         </View>
       </Card.Content>
       <Card.Actions style={defaultStyles.rowSpaced}>
-        <Button onPress={() => navigation.popToTop()}>Shop More</Button>
+        <Button onPress={() => navigation.goBack()}>Shop More</Button>
         <Button>Add To Cart</Button>
       </Card.Actions>
     </Card>
