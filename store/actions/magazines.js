@@ -5,4 +5,11 @@ const addMagazine = (magazine) => {
   };
 };
 
-export { addMagazine };
+const deleteMagazine = (id) => {
+  return {
+    type: 'DELETE_MAGAZINE',
+    id,
+  };
+};
+
+export { addMagazine, deleteMagazine };
