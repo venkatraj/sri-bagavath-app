@@ -6,7 +6,7 @@ import Range from '../constants/Range';
 
 const MagazineFilters = (props) => {
   const [visibility, setVisibility] = useState(false);
-  const [selectedItem, setSelectedItem] = useState('');
+  const { selectedYear, onSelect } = props;
 
   const openMenu = () => setVisibility(true);
 
@@ -18,15 +18,13 @@ const MagazineFilters = (props) => {
       <Menu.Item
         key={year}
         onPress={() => {
-          setSelectedItem(year);
+          onSelect(year);
           closeMenu();
         }}
         title={year}
       />
     );
   }
-
-  console.log(selectedItem);
 
   return (
     <View
@@ -42,9 +40,17 @@ const MagazineFilters = (props) => {
         onDismiss={closeMenu}
         anchor={<Button onPress={openMenu}>Filter by Year:</Button>}
       >
+        <Menu.Item
+          key="all"
+          onPress={() => {
+            onSelect('');
+            closeMenu();
+          }}
+          title="All"
+        />
         {years}
       </Menu>
-      <Paragraph>{selectedItem}</Paragraph>
+      <Paragraph>{selectedYear}</Paragraph>
     </View>
   );
 };
