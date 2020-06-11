@@ -6,7 +6,7 @@ import defaultStyles from '../theme/defaultStyles';
 
 const ProductItem = (props) => {
   const { productData: product, onPress } = props;
-  const { title, description, imageUrl, price, category } = product;
+  const { id, title, description, imageUrl, price, category } = product;
   return (
     <Card style={defaultStyles.item}>
       <Card.Content>
@@ -17,7 +17,7 @@ const ProductItem = (props) => {
       <Card.Actions style={defaultStyles.rowSpaced}>
         <Button
           onPress={() => {
-            onPress(product);
+            onPress(id);
           }}
         >
           View Details
@@ -28,11 +28,6 @@ const ProductItem = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  productItem: {
-    marginHorizontal: 20,
-    marginVertical: 10,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default ProductItem;

@@ -1,12 +1,16 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Card, Title, Paragraph, Subheading } from 'react-native-paper';
+import { useSelector } from 'react-redux';
 
 import defaultStyles from '../../theme/defaultStyles';
+import getProduct from '../../utils/getProduct';
 
 const ProductDetailsScreen = (props) => {
   const { navigation } = props;
-  const product = props.route.params.product;
+  const products = useSelector((state) => state.products);
+  const id = props.route.params.id;
+  const product = getProduct(id, products);
   const { title, description, imageUrl, price, category } = product;
   return (
     <Card style={defaultStyles.item}>
