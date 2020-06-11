@@ -30,6 +30,7 @@ const MagazinesScreen = (props) => {
     <FlatList
       data={magazines}
       renderItem={renderMagazine}
+      numColumns={2}
       ListHeaderComponent={() => (
         <MagazineFilters selectedYear={selectedYear} onSelect={onSelect} />
       )}

@@ -8,13 +8,12 @@ const EBookItem = (props) => {
   const { title, url, description } = props.ebookData;
   return (
     <Card style={defaultStyles.item}>
-      <Card.Content style={defaultStyles.centered}>
-        <Title>{title}</Title>
+      <Card.Content>
+        <Title style={defaultStyles.centeredText}>{title}</Title>
+        <Card.Actions style={defaultStyles.centered}>
+          <Button onPress={() => {}}>Download</Button>
+        </Card.Actions>
       </Card.Content>
-      <Card.Actions style={defaultStyles.rowSpaced}>
-        <Button>View Details</Button>
-        <Button onPress={() => {}}>Download</Button>
-      </Card.Actions>
     </Card>
   );
 };
