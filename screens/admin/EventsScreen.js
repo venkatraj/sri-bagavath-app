@@ -1,6 +1,7 @@
 import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
+import { FAB } from 'react-native-paper';
 
 import EventItem from '../../components/EventItem';
 
@@ -11,9 +12,26 @@ const EventsAdminScreen = (props) => {
     return <EventItem eventData={itemData.item} />;
   };
 
-  return <FlatList data={events} renderItem={renderEvent} />;
+  return (
+    <View>
+      <FlatList data={events} renderItem={renderEvent} />
+      <FAB
+        style={styles.fab}
+        medium
+        icon="plus"
+        onPress={() => console.log('Pressed')}
+      />
+    </View>
+  );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  fab: {
+    position: 'absolute',
+    margin: 20,
+    right: 0,
+    bottom: 0,
+  },
+});
 
 export default EventsAdminScreen;
