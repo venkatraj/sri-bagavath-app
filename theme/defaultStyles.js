@@ -14,6 +14,12 @@ const defaultStyles = StyleSheet.create({
     textAlign: 'center',
   },
   rowSpaced: { justifyContent: 'space-between' },
+  fab: {
+    position: 'absolute',
+    margin: 20,
+    right: 0,
+    bottom: 0,
+  },
 });
 
 export default defaultStyles;

@@ -1,22 +1,37 @@
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
-import { FAB } from 'react-native-paper';
+import { useSelector, useDispatch } from 'react-redux';
+import { Button, Card, FAB } from 'react-native-paper';
 
+import defaultStyles from '../../theme/defaultStyles';
 import EventItem from '../../components/EventItem';
+import { deleteEvent } from '../../store/actions/events';
 
 const EventsAdminScreen = (props) => {
   const events = useSelector((state) => state.events);
+  const dispatch = useDispatch();
 
   const renderEvent = (itemData) => {
-    return <EventItem eventData={itemData.item} />;
+    const { id } = itemData.item;
+
+    return (
+      <View>
+        <EventItem eventData={itemData.item} />
+        <Card>
+          <Card.Actions style={defaultStyles.rowSpaced}>
+            <Button onPress={() => dispatch(deleteEvent(id))}>Delete</Button>
+            <Button onPress={() => {}}>Edit</Button>
+          </Card.Actions>
+        </Card>
+      </View>
+    );
   };
 
   return (
     <View>
       <FlatList data={events} renderItem={renderEvent} />
       <FAB
-        style={styles.fab}
+        style={defaultStyles.fab}
         medium
         icon="plus"
         onPress={() => console.log('Pressed')}
@@ -25,13 +40,6 @@ const EventsAdminScreen = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  fab: {
-    position: 'absolute',
-    margin: 20,
-    right: 0,
-    bottom: 0,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default EventsAdminScreen;
