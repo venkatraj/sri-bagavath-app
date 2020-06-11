@@ -5,4 +5,11 @@ const addEBook = (ebook) => {
   };
 };
 
-export { addEBook };
+const deleteEBook = (id) => {
+  return {
+    type: 'DELETE_EBOOK',
+    id,
+  };
+};
+
+export { addEBook, deleteEBook };

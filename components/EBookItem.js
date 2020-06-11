@@ -6,6 +6,7 @@ import defaultStyles from '../theme/defaultStyles';
 
 const EBookItem = (props) => {
   const { title, url, description } = props.ebookData;
+
   return (
     <Card style={defaultStyles.item}>
       <Card.Content>

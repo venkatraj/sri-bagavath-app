@@ -2,6 +2,8 @@ const ebooksReducer = (state = [], action) => {
   switch (action.type) {
     case 'ADD_EBOOK':
       return [...state, action.ebook];
+    case 'DELETE_EBOOK':
+      return state.filter((ebook) => ebook.id !== action.id);
     default:
       return state;
   }
