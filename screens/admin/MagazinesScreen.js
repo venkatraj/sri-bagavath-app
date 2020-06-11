@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Card, Button, FAB } from 'react-native-paper';
+import { Card, Button, FAB, Snackbar } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
 import MagazineItem from '../../components/MagazineItem';
@@ -10,16 +10,22 @@ import { deleteMagazine } from '../../store/actions/magazines';
 const MagazinesAdminScreen = (props) => {
   const magazines = useSelector((state) => state.magazines);
   const dispatch = useDispatch();
+  const [visibility, setVisibility] = useState(false);
 
   const renderMagazine = (itemData) => {
     const { id } = itemData.item;
+
+    const onDelete = () => {
+      dispatch(deleteMagazine(id));
+      setVisibility(true);
+    };
 
     return (
       <View>
         <MagazineItem magazineData={itemData.item} />
         <Card>
           <Card.Actions style={defaultStyles.rowSpaced}>
-            <Button onPress={() => dispatch(deleteMagazine(id))}>Delete</Button>
+            <Button onPress={onDelete}>Delete</Button>
             <Button onPress={() => {}}>Edit</Button>
           </Card.Actions>
         </Card>
@@ -36,6 +42,19 @@ const MagazinesAdminScreen = (props) => {
         icon="plus"
         onPress={() => console.log('Pressed')}
       />
+      <Snackbar
+        visible={visibility}
+        onDismiss={() => setVisibility(false)}
+        action={{
+          label: 'Okay',
+          duration: 3000,
+          onPress: () => {
+            // Do something
+          },
+        }}
+      >
+        Magazine deleted!
+      </Snackbar>
     </View>
   );
 };
