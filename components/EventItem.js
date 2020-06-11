@@ -1,26 +1,34 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Card, Title, Subheading, Paragraph } from 'react-native-paper';
+import { Button, Card, Title, Subheading, Paragraph } from 'react-native-paper';
+
+import defaultStyles from '../theme/defaultStyles';
 
 const EventItem = (props) => {
-  const { name, host, venue, date } = props.eventData;
+  const { eventData: event, onPress } = props;
+  const { id, name, host, venue, price, date } = event;
   return (
-    <Card style={styles.eventItem}>
+    <Card style={defaultStyles.item}>
       <Card.Content>
         <Title>{name}</Title>
         <Subheading>வழங்குபவர்: {host}</Subheading>
         <Paragraph>நடைபெறும் இடம்: {venue}</Paragraph>
         <Paragraph>நாள்: {date.toDateString()}</Paragraph>
       </Card.Content>
+      <Card.Actions style={defaultStyles.rowSpaced}>
+        <Button
+          onPress={() => {
+            onPress(id);
+          }}
+        >
+          View Details
+        </Button>
+        <Paragraph>{price}</Paragraph>
+      </Card.Actions>
     </Card>
   );
 };
 
-const styles = StyleSheet.create({
-  eventItem: {
-    marginHorizontal: 20,
-    marginVertical: 10,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default EventItem;

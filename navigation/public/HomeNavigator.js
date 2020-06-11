@@ -6,7 +6,7 @@ import HeaderBack from '../../components/HeaderBack';
 import HomeScreen from '../../screens/public/HomeScreen';
 import AboutScreen from '../../screens/public/AboutScreen';
 import ShopNavigator from './ShopNavigator';
-import EventsScreen from '../../screens/public/EventsScreen';
+import EventsNavigator from './EventsNavigator';
 import MagazinesScreen from '../../screens/public/MagazinesScreen';
 import EBooksScreen from '../../screens/public/EBooksScreen';
 import ContactScreen from '../../screens/public/ContactScreen';
@@ -42,7 +42,7 @@ const HomeNavigator = (props) => {
       />
       <HomeStack.Screen
         name="Events"
-        component={EventsScreen}
+        component={EventsNavigator}
         options={{
           header: (props) => <HeaderBack {...props} />,
         }}
