@@ -4,12 +4,13 @@ import EBook from '../models/EBook';
 import Product from '../models/Product';
 
 const EVENTS = [
-  new Event('1', 'Gnana Muham 1', 'Sri Bagavath', 'Bhavan', new Date()),
+  new Event('1', 'Gnana Muham 1', 'Sri Bagavath', 'Bhavan', 3000, new Date()),
   new Event(
     '2',
     'Gnana Muham 2',
     'VAP Saravanan',
     'Bhavan',
+    1500,
     new Date('2020-04-30')
   ),
   new Event(
@@ -17,6 +18,7 @@ const EVENTS = [
     'Gnana Muham 3',
     'KS Jeevamani',
     'Bhavan',
+    1000,
     new Date('2020-01-01')
   ),
   new Event(
@@ -24,9 +26,17 @@ const EVENTS = [
     'Gnana Muham 4',
     'Sri Bagavath',
     'Zoom',
+    0,
     new Date('2020-06-09')
   ),
-  new Event('5', 'Gnana Muham 5', 'VAP and KS', 'Zoom', new Date('2020-06-10')),
+  new Event(
+    '5',
+    'Gnana Muham 5',
+    'VAP and KS',
+    'Zoom',
+    0,
+    new Date('2020-06-10')
+  ),
 ];
 
 const MAGAZINES = [
