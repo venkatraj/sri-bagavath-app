@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Card, Paragraph } from 'react-native-paper';
+import { Button, Card, Paragraph } from 'react-native-paper';
 
 const MagazineItem = (props) => {
   const { date, url } = props.magazineData;
@@ -8,7 +8,7 @@ const MagazineItem = (props) => {
     <Card style={styles.magazineItem}>
       <Card.Content>
         <Paragraph>{date.toDateString()}</Paragraph>
-        <Paragraph>{url}</Paragraph>
+        <Button onPress={() => console.log(url)}>Download</Button>
       </Card.Content>
     </Card>
   );
