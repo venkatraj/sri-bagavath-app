@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Card, Button } from 'react-native-paper';
+import { Card, Button, FAB } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
 import EBookItem from '../../components/EBookItem';
@@ -17,15 +17,27 @@ const EBooksAdminScreen = (props) => {
     return (
       <View>
         <EBookItem ebookData={itemData.item} />
-        <Card.Actions style={defaultStyles.rowSpaced}>
-          <Button onPress={() => dispatch(deleteEBook(id))}>Delete</Button>
-          <Button onPress={() => {}}>Edit</Button>
-        </Card.Actions>
+        <Card>
+          <Card.Actions style={defaultStyles.rowSpaced}>
+            <Button onPress={() => dispatch(deleteEBook(id))}>Delete</Button>
+            <Button onPress={() => {}}>Edit</Button>
+          </Card.Actions>
+        </Card>
       </View>
     );
   };
 
-  return <FlatList data={ebooks} renderItem={renderEBook} />;
+  return (
+    <View>
+      <FlatList data={ebooks} renderItem={renderEBook} />
+      <FAB
+        style={defaultStyles.fab}
+        medium
+        icon="plus"
+        onPress={() => console.log('Pressed')}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({});
