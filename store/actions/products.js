@@ -5,6 +5,14 @@ const addProduct = (product) => {
   };
 };
 
+const editProduct = (id, updates) => {
+  return {
+    type: 'EDIT_PRODUCT',
+    id,
+    updates,
+  };
+};
+
 const deleteProduct = (id) => {
   return {
     type: 'DELETE_PRODUCT',
@@ -12,4 +20,4 @@ const deleteProduct = (id) => {
   };
 };
 
-export { addProduct, deleteProduct };
+export { addProduct, editProduct, deleteProduct };

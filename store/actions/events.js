@@ -5,6 +5,14 @@ const addEvent = (event) => {
   };
 };
 
+const editEvent = (id, updates) => {
+  return {
+    type: 'EDIT_EVENT',
+    id,
+    updates,
+  };
+};
+
 const deleteEvent = (id) => {
   return {
     type: 'DELETE_EVENT',
@@ -12,4 +20,4 @@ const deleteEvent = (id) => {
   };
 };
 
-export { addEvent, deleteEvent };
+export { addEvent, editEvent, deleteEvent };

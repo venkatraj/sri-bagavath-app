@@ -14,7 +14,9 @@ const EventItem = (props) => {
         <Title>{name}</Title>
         <Subheading>வழங்குபவர்: {host}</Subheading>
         <Paragraph>நடைபெறும் இடம்: {venue}</Paragraph>
-        <Paragraph>நாள்: {date.toDateString()}</Paragraph>
+        <Paragraph>
+          நாள்: {date instanceof Date ? date.toDateString() : date}
+        </Paragraph>
       </Card.Content>
       <Card.Actions style={defaultStyles.rowSpaced}>
         <Button

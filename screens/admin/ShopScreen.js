@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Card, Button, FAB, Snackbar } from 'react-native-paper';
@@ -9,9 +9,16 @@ import { deleteProduct } from '../../store/actions/products';
 
 const ShopAdminScreen = (props) => {
   const { navigation } = props;
-  const products = useSelector((state) => state.products);
+  let products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
+
+  const onPress = (id = null) => {
+    navigation.push('ShopAdmin', {
+      screen: 'Product',
+      params: { id },
+    });
+  };
 
   const renderProduct = (itemData) => {
     const { id } = itemData.item;
@@ -26,7 +33,7 @@ const ShopAdminScreen = (props) => {
         <Card>
           <Card.Actions style={defaultStyles.rowSpaced}>
             <Button onPress={onDelete}>Delete</Button>
-            <Button onPress={() => {}}>Edit</Button>
+            <Button onPress={() => onPress(id)}>Edit</Button>
           </Card.Actions>
         </Card>
       </View>
@@ -40,7 +47,7 @@ const ShopAdminScreen = (props) => {
         style={defaultStyles.fab}
         medium
         icon="plus"
-        onPress={() => console.log('Pressed')}
+        onPress={() => onPress()}
       />
       <Snackbar
         visible={visibility}

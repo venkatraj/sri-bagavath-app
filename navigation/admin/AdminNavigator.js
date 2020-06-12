@@ -4,8 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HeaderDrawer from '../../components/HeaderDrawer';
 import HeaderBack from '../../components/HeaderBack';
 import AdminScreen from '../../screens/admin/AdminScreen';
-import ShopAdminScreen from '../../screens/admin/ShopScreen';
-import EventsAdminScreen from '../../screens/admin/EventsScreen';
+import ShopNavigator from '../admin/ShopNavigator';
+import EventsNavigator from '../admin/EventsNavigator';
 import MagazinesAdminScreen from '../../screens/admin/MagazinesScreen';
 import EBooksAdminScreen from '../../screens/admin/EBooksScreen';
 
@@ -25,14 +25,14 @@ const AdminNavigator = (props) => {
       <Stack.Screen name="AdminScreen" component={AdminScreen} />
       <Stack.Screen
         name="ShopAdmin"
-        component={ShopAdminScreen}
+        component={ShopNavigator}
         options={{
           header: (props) => <HeaderBack {...props} />,
         }}
       />
       <Stack.Screen
         name="EventsAdmin"
-        component={EventsAdminScreen}
+        component={EventsNavigator}
         options={{
           header: (props) => <HeaderBack {...props} />,
         }}

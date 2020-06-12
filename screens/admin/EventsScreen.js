@@ -8,9 +8,18 @@ import EventItem from '../../components/EventItem';
 import { deleteEvent } from '../../store/actions/events';
 
 const EventsAdminScreen = (props) => {
+  const { navigation } = props;
   const events = useSelector((state) => state.events);
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
+
+  const onPress = (id = null) => {
+    console.log(id);
+    navigation.push('EventsAdmin', {
+      screen: 'Event',
+      params: { id },
+    });
+  };
 
   const renderEvent = (itemData) => {
     const { id } = itemData.item;
@@ -26,7 +35,7 @@ const EventsAdminScreen = (props) => {
         <Card>
           <Card.Actions style={defaultStyles.rowSpaced}>
             <Button onPress={onDelete}>Delete</Button>
-            <Button onPress={() => {}}>Edit</Button>
+            <Button onPress={() => onPress(id)}>Edit</Button>
           </Card.Actions>
         </Card>
       </View>
@@ -40,7 +49,7 @@ const EventsAdminScreen = (props) => {
         style={defaultStyles.fab}
         medium
         icon="plus"
-        onPress={() => console.log('Pressed')}
+        onPress={() => onPress()}
       />
       <Snackbar
         visible={visibility}

@@ -1,28 +1,51 @@
 import React, { Fragment } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Keyboard, View, Text, StyleSheet } from 'react-native';
 import { Button, TextInput, HelperText, Switch } from 'react-native-paper';
+import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Picker } from '@react-native-community/picker';
 
+import getProduct from '../../utils/getProduct';
+import { addProduct, editProduct } from '../../store/actions/products';
+
 const ProductForm = (props) => {
+  const { id, onSubmitHandler } = props;
+  const products = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+  let product;
+  if (id) {
+    product = getProduct(id, products);
+  }
+
+  const onSubmit = (values) => {
+    Keyboard.dismiss();
+    if (id) {
+      dispatch(editProduct(id, values));
+    } else {
+      dispatch(addProduct(values));
+    }
+    onSubmitHandler();
+  };
+
   return (
     <Formik
       initialValues={{
-        title: '',
-        description: '',
-        price: '',
-        category: 'book',
+        title: id ? product.title : '',
+        description: id ? product.description : '',
+        price: id ? product.price.toString() : '',
+        category: id ? product.category : 'Book',
       }}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={onSubmit}
       validationSchema={yup.object().shape({
         title: yup.string().min(5).required(),
         description: yup.string(),
-        price: yup.number().required(),
+        price: yup.string().required(),
         category: yup.string().required(),
       })}
     >
       {({
+        initialValues,
         handleChange,
         handleBlur,
         handleSubmit,
@@ -30,6 +53,7 @@ const ProductForm = (props) => {
         errors,
         touched,
         isValid,
+        setFieldValue,
       }) => (
         <View>
           <TextInput
@@ -67,12 +91,12 @@ const ProductForm = (props) => {
           <Picker
             id="category"
             name="category"
-            onValueChange={handleChange('category')}
-            onBlur={handleBlur('category')}
-            value={values.title}
+            onValueChange={(itemValue) => setFieldValue('category', itemValue)}
+            // onBlur={handleBlur('category')}
+            selectedValue={values.category || initialValues.category}
           >
-            <Picker.Item label="Book" value="book" />
-            <Picker.Item label="CD/DVD" value="cd_dvd" />
+            <Picker.Item label="Book" value="Book" />
+            <Picker.Item label="CD/DVD" value="CD/DVD" />
           </Picker>
           <Button disabled={!isValid} onPress={handleSubmit}>
             Submit
