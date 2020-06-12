@@ -5,4 +5,11 @@ const addProduct = (product) => {
   };
 };
 
-export { addProduct };
+const deleteProduct = (id) => {
+  return {
+    type: 'DELETE_PRODUCT',
+    id,
+  };
+};
+
+export { addProduct, deleteProduct };

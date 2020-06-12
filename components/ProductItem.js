@@ -5,7 +5,7 @@ import { Button, Card, Title, Paragraph } from 'react-native-paper';
 import defaultStyles from '../theme/defaultStyles';
 
 const ProductItem = (props) => {
-  const { productData: product, onPress } = props;
+  const { productData: product, onPress, isAuth } = props;
   const { id, title, description, imageUrl, price, category } = product;
   return (
     <Card style={defaultStyles.item}>
@@ -14,16 +14,18 @@ const ProductItem = (props) => {
         <Paragraph>Price: Rs.{price}</Paragraph>
         <Paragraph>Available as: {category}</Paragraph>
       </Card.Content>
-      <Card.Actions style={defaultStyles.rowSpaced}>
-        <Button
-          onPress={() => {
-            onPress(id);
-          }}
-        >
-          View Details
-        </Button>
-        <Button>Add To Cart</Button>
-      </Card.Actions>
+      {!isAuth ? (
+        <Card.Actions style={defaultStyles.rowSpaced}>
+          <Button
+            onPress={() => {
+              onPress(id);
+            }}
+          >
+            View Details
+          </Button>
+          <Button>Add To Cart</Button>
+        </Card.Actions>
+      ) : null}
     </Card>
   );
 };
