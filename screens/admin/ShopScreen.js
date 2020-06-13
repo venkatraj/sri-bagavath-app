@@ -27,6 +27,7 @@ const ShopAdminScreen = (props) => {
       dispatch(deleteProduct(id));
       setVisibility(true);
     };
+
     return (
       <View>
         <ProductItem isAuth={true} productData={itemData.item} />
@@ -46,7 +47,6 @@ const ShopAdminScreen = (props) => {
         <HelperText>No products found!. Add Some</HelperText>
       ) : (
         <View>
-          <HelperText>What</HelperText>
           <FlatList data={products} renderItem={renderProduct} />
 
           <Snackbar

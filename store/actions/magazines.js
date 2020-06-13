@@ -1,7 +1,20 @@
+import { database } from '../../firebase/firebase';
+
 const addMagazine = (magazine) => {
+  return async (dispatch) => {
+    await database.ref('magazines').push(magazine);
+    dispatch({
+      type: 'ADD_MAGAZINE',
+      magazine,
+    });
+  };
+};
+
+const editMagazine = (id, updates) => {
   return {
-    type: 'ADD_MAGAZINE',
-    magazine,
+    type: 'EDIT_MAGAZINE',
+    id,
+    updates,
   };
 };
 
@@ -12,4 +25,4 @@ const deleteMagazine = (id) => {
   };
 };
 
-export { addMagazine, deleteMagazine };
+export { addMagazine, editMagazine, deleteMagazine };

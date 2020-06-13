@@ -11,7 +11,7 @@ const MagazineItem = (props) => {
     <Card style={defaultStyles.item}>
       <Card.Content>
         <Paragraph style={defaultStyles.centeredText}>
-          {date.toDateString()}
+          {date instanceof Date ? date.toDateString() : date}
         </Paragraph>
         <Card.Actions style={defaultStyles.centered}>
           <Button onPress={() => console.log(url)}>Download</Button>

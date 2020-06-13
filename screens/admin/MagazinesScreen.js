@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Card, Button, FAB, Snackbar } from 'react-native-paper';
+import { Card, Button, FAB, Snackbar, HelperText } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
 import MagazineItem from '../../components/MagazineItem';
 import { deleteMagazine } from '../../store/actions/magazines';
 
 const MagazinesAdminScreen = (props) => {
+  const { navigation } = props;
   const magazines = useSelector((state) => state.magazines);
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
+
+  const onPress = (id = null) => {
+    navigation.push('MagazinesAdmin', {
+      screen: 'Magazine',
+      params: { id },
+    });
+  };
 
   const renderMagazine = (itemData) => {
     const { id } = itemData.item;
@@ -26,7 +34,7 @@ const MagazinesAdminScreen = (props) => {
         <Card>
           <Card.Actions style={defaultStyles.rowSpaced}>
             <Button onPress={onDelete}>Delete</Button>
-            <Button onPress={() => {}}>Edit</Button>
+            <Button onPress={() => onPress(id)}>Edit</Button>
           </Card.Actions>
         </Card>
       </View>
@@ -34,27 +42,35 @@ const MagazinesAdminScreen = (props) => {
   };
 
   return (
-    <View>
-      <FlatList data={magazines} renderItem={renderMagazine} />
+    <View style={defaultStyles.occupy}>
+      {magazines.length === 0 ? (
+        <View>
+          <HelperText>No magazines found. Add some!</HelperText>
+        </View>
+      ) : (
+        <View>
+          <FlatList data={magazines} renderItem={renderMagazine} />
+          <Snackbar
+            visible={visibility}
+            onDismiss={() => setVisibility(false)}
+            action={{
+              label: 'Okay',
+              duration: 3000,
+              onPress: () => {
+                // Do something
+              },
+            }}
+          >
+            Magazine deleted!
+          </Snackbar>
+        </View>
+      )}
       <FAB
         style={defaultStyles.fab}
         medium
         icon="plus"
-        onPress={() => console.log('Pressed')}
+        onPress={() => onPress()}
       />
-      <Snackbar
-        visible={visibility}
-        onDismiss={() => setVisibility(false)}
-        action={{
-          label: 'Okay',
-          duration: 3000,
-          onPress: () => {
-            // Do something
-          },
-        }}
-      >
-        Magazine deleted!
-      </Snackbar>
     </View>
   );
 };
