@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Card, Button, FAB, Snackbar } from 'react-native-paper';
+import { Button, Card, FAB, Snackbar, HelperText } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
 import EBookItem from '../../components/EBookItem';
 import { deleteEBook } from '../../store/actions/ebooks';
 
 const EBooksAdminScreen = (props) => {
+  const { navigation } = props;
   const ebooks = useSelector((state) => state.ebooks);
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
+
+  const onPress = (id = null) => {
+    navigation.push('EBooksAdmin', {
+      screen: 'EBook',
+      params: { id },
+    });
+  };
 
   const renderEBook = (itemData) => {
     const { id } = itemData.item;
@@ -26,7 +34,7 @@ const EBooksAdminScreen = (props) => {
         <Card>
           <Card.Actions style={defaultStyles.rowSpaced}>
             <Button onPress={onDelete}>Delete</Button>
-            <Button onPress={() => {}}>Edit</Button>
+            <Button onPress={() => onPress(id)}>Edit</Button>
           </Card.Actions>
         </Card>
       </View>
@@ -34,27 +42,35 @@ const EBooksAdminScreen = (props) => {
   };
 
   return (
-    <View>
-      <FlatList data={ebooks} renderItem={renderEBook} />
+    <View style={defaultStyles.occupy}>
+      {ebooks.length === 0 ? (
+        <View>
+          <HelperText>No ebooks found. Add some!</HelperText>
+        </View>
+      ) : (
+        <View>
+          <FlatList data={ebooks} renderItem={renderEBook} />
+          <Snackbar
+            visible={visibility}
+            onDismiss={() => setVisibility(false)}
+            action={{
+              label: 'Okay',
+              duration: 3000,
+              onPress: () => {
+                // Do something
+              },
+            }}
+          >
+            EBook deleted.
+          </Snackbar>
+        </View>
+      )}
       <FAB
         style={defaultStyles.fab}
         medium
         icon="plus"
-        onPress={() => console.log('Pressed')}
+        onPress={() => onPress()}
       />
-      <Snackbar
-        visible={visibility}
-        onDismiss={() => setVisibility(false)}
-        action={{
-          label: 'Okay',
-          duration: 3000,
-          onPress: () => {
-            // Do something
-          },
-        }}
-      >
-        EBook deleted.
-      </Snackbar>
     </View>
   );
 };

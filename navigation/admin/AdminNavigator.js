@@ -7,7 +7,7 @@ import AdminScreen from '../../screens/admin/AdminScreen';
 import ShopNavigator from './ShopNavigator';
 import EventsNavigator from './EventsNavigator';
 import MagazinesNavigator from './MagazinesNavigator';
-import EBooksAdminScreen from '../../screens/admin/EBooksScreen';
+import EBooksNavigator from './EBooksNavigator';
 
 const Stack = createStackNavigator();
 
@@ -46,7 +46,7 @@ const AdminNavigator = (props) => {
       />
       <Stack.Screen
         name="EBooksAdmin"
-        component={EBooksAdminScreen}
+        component={EBooksNavigator}
         options={{
           header: (props) => <HeaderBack {...props} />,
         }}
