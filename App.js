@@ -6,10 +6,11 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import AppNavigator from './navigation/AppNavigator';
 import configureStore from './store/configureStore';
 import populateData from './data/populate';
+import { database } from './firebase/firebase';
 
 const store = configureStore();
-populateData(store);
-// console.log(store.getState().products);
+// populateData(store);
+const subscribe = store.subscribe(() => console.log(store.getState().products));
 
 export default function App() {
   return (

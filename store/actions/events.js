@@ -1,7 +1,12 @@
+import { database } from '../../firebase/firebase';
 const addEvent = (event) => {
-  return {
-    type: 'ADD_EVENT',
-    event,
+  return async (dispatch) => {
+    await database.ref('events').push(event);
+
+    dispatch({
+      type: 'ADD_EVENT',
+      event,
+    });
   };
 };
 

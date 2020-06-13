@@ -1,7 +1,12 @@
+import { database } from '../../firebase/firebase';
+
 const addProduct = (product) => {
-  return {
-    type: 'ADD_PRODUCT',
-    product,
+  return async (dispatch) => {
+    await database.ref('products').push(product);
+    dispatch({
+      type: 'ADD_PRODUCT',
+      product,
+    });
   };
 };
 

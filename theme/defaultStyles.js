@@ -20,6 +20,9 @@ const defaultStyles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  occupy: {
+    flex: 1,
+  },
 });
 
 export default defaultStyles;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Card, Button, FAB, Snackbar } from 'react-native-paper';
+import { Card, Button, FAB, Snackbar, HelperText } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
 import ProductItem from '../../components/ProductItem';
@@ -41,27 +41,35 @@ const ShopAdminScreen = (props) => {
   };
 
   return (
-    <View>
-      <FlatList data={products} renderItem={renderProduct} />
+    <View style={defaultStyles.occupy}>
+      {products.length === 0 ? (
+        <HelperText>No products found!. Add Some</HelperText>
+      ) : (
+        <View>
+          <HelperText>What</HelperText>
+          <FlatList data={products} renderItem={renderProduct} />
+
+          <Snackbar
+            visible={visibility}
+            onDismiss={() => setVisibility(false)}
+            action={{
+              label: 'Okay',
+              duration: 3000,
+              onPress: () => {
+                // Do something
+              },
+            }}
+          >
+            Product deleted!
+          </Snackbar>
+        </View>
+      )}
       <FAB
         style={defaultStyles.fab}
         medium
         icon="plus"
         onPress={() => onPress()}
       />
-      <Snackbar
-        visible={visibility}
-        onDismiss={() => setVisibility(false)}
-        action={{
-          label: 'Okay',
-          duration: 3000,
-          onPress: () => {
-            // Do something
-          },
-        }}
-      >
-        Product deleted!
-      </Snackbar>
     </View>
   );
 };
