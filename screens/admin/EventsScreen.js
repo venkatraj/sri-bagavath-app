@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Card, FAB, Snackbar } from 'react-native-paper';
+import { Button, Card, FAB, Snackbar, HelperText } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
 import EventItem from '../../components/EventItem';
@@ -43,27 +43,36 @@ const EventsAdminScreen = (props) => {
   };
 
   return (
-    <View>
-      <FlatList data={events} renderItem={renderEvent} />
+    <View style={defaultStyles.occupy}>
+      {events.length === 0 ? (
+        <View>
+          <HelperText>No events found. Add some</HelperText>
+        </View>
+      ) : (
+        <View>
+          <FlatList data={events} renderItem={renderEvent} />
+
+          <Snackbar
+            visible={visibility}
+            onDismiss={() => setVisibility(false)}
+            action={{
+              label: 'Okay',
+              duration: 3000,
+              onPress: () => {
+                // Do something
+              },
+            }}
+          >
+            Event deleted!
+          </Snackbar>
+        </View>
+      )}
       <FAB
         style={defaultStyles.fab}
         medium
         icon="plus"
         onPress={() => onPress()}
       />
-      <Snackbar
-        visible={visibility}
-        onDismiss={() => setVisibility(false)}
-        action={{
-          label: 'Okay',
-          duration: 3000,
-          onPress: () => {
-            // Do something
-          },
-        }}
-      >
-        Event deleted!
-      </Snackbar>
     </View>
   );
 };
