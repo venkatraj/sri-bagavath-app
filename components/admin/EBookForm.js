@@ -14,67 +14,17 @@ const EBookForm = (props) => {
   const { id, onSubmitHandler } = props;
   const ebooks = useSelector((state) => state.ebooks);
   const dispatch = useDispatch();
-  let ebook, fileName;
+  let ebook, name, uri;
   if (id) {
     ebook = getEBook(id, ebooks);
   }
 
-  const uriToBlob = (uri) => {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        // return the blob
-        resolve(xhr.response);
-      };
-
-      xhr.onerror = function () {
-        // something went wrong
-        reject(new Error('uriToBlob failed'));
-      };
-      // this helps us get a blob
-      xhr.responseType = 'blob';
-      xhr.open('GET', uri, true);
-
-      xhr.send(null);
-    });
-  };
-
-  const uploadToFirebase = (blob) => {
-    return new Promise((resolve, reject) => {
-      var storageRef = firebase.storage().ref();
-      storageRef
-        .child(`ebooks/${fileName}`)
-        .put(blob, {
-          contentType: 'application/pdf',
-        })
-        .then((snapshot) => {
-          blob.close();
-          resolve(snapshot);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  };
-
   const chooseEBook = () => {
-    DocumentPicker.getDocumentAsync()
-      .then((result) => {
-        if (result.type !== 'cancel') {
-          const { uri, name, size } = result;
-          fileName = name;
-          return uriToBlob(uri);
-        }
-      })
-      .then((blob) => {
-        return uploadToFirebase(blob);
-      })
-      .then((snapshot) => {
-        console.log('File uploaded!');
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    DocumentPicker.getDocumentAsync().then((result) => {
+      if (result.type !== 'cancel') {
+        ({ uri, name } = result);
+      }
+    });
   };
 
   const onSubmit = (values) => {
@@ -82,7 +32,7 @@ const EBookForm = (props) => {
     if (id) {
       dispatch(editEBook(id, values));
     } else {
-      dispatch(addEBook(values));
+      dispatch(addEBook(values, name, uri));
     }
     onSubmitHandler();
   };
