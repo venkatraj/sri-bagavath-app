@@ -31,7 +31,7 @@ const EBooksAdminScreen = (props) => {
     return (
       <View>
         <EBookItem ebookData={itemData.item} />
-        <Card>
+        <Card style={defaultStyles.btnContainer}>
           <Card.Actions style={defaultStyles.rowSpaced}>
             <Button onPress={onDelete}>Delete</Button>
             <Button onPress={() => onPress(id)}>Edit</Button>

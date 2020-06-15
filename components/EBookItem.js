@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Card, Button, Title } from 'react-native-paper';
+import { Card, Button, Title, Paragraph } from 'react-native-paper';
 
 import defaultStyles from '../theme/defaultStyles';
 
@@ -11,6 +11,7 @@ const EBookItem = (props) => {
     <Card style={defaultStyles.item}>
       <Card.Content>
         <Title style={defaultStyles.centeredText}>{title}</Title>
+        <Paragraph style={defaultStyles.centeredText}>{description}</Paragraph>
         <Card.Actions style={defaultStyles.centered}>
           <Button onPress={() => {}}>Download</Button>
         </Card.Actions>

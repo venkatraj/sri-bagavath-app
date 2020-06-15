@@ -14,6 +14,7 @@ const defaultStyles = StyleSheet.create({
     textAlign: 'center',
   },
   rowSpaced: { justifyContent: 'space-between' },
+  btnContainer: { marginHorizontal: 20 },
   fab: {
     position: 'absolute',
     margin: 20,
