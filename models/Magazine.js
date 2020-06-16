@@ -1,8 +1,9 @@
 class Magazine {
-  constructor(id, date, url) {
+  constructor(id, date, fileName, downloadUrl) {
     this.id = id;
     this.date = date;
-    this.url = url;
+    this.fileName = fileName;
+    this.downloadUrl = downloadUrl;
   }
 }
 

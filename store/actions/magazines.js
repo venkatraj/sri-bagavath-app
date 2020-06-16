@@ -1,12 +1,50 @@
 import { database } from '../../firebase/firebase';
+import uriToBlob from '../../utils/uriToBlob';
+import uploadToFirebase from '../../utils/uploadToFirebase';
+import Magazine from '../../models/Magazine';
 
-const addMagazine = (magazine) => {
+const fetchMagazines = () => {
   return async (dispatch) => {
-    await database.ref('magazines').push(magazine);
-    dispatch({
-      type: 'ADD_MAGAZINE',
-      magazine,
+    const magazines = [];
+    database.ref('magazines').once('value', (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        const { date, fileName, downloadUrl } = childSnapshot.val();
+        const magazine = new Magazine(
+          childSnapshot.key,
+          date,
+          fileName,
+          downloadUrl
+        );
+        magazines.push(magazine);
+      });
+      dispatch({ type: 'SET_MAGAZINES', magazines });
     });
+  };
+};
+
+const addMagazine = (values, fileName, uri) => {
+  return async (dispatch) => {
+    const { date } = values;
+    const [day, month, year] = date.split('-');
+    const path = `magazines/${year}/${month}`;
+    let downloadUrl;
+    try {
+      const blob = await uriToBlob(uri);
+      const snapshot = await uploadToFirebase(blob, path, fileName);
+      downloadUrl = await snapshot.ref.getDownloadURL();
+      const res = await database.ref('magazines').push({
+        date,
+        fileName,
+        downloadUrl,
+      });
+      const magazine = new Magazine(res.key, date, fileName, downloadUrl);
+      dispatch({
+        type: 'ADD_MAGAZINE',
+        magazine,
+      });
+    } catch (e) {
+      console.error(e);
+    }
   };
 };
 
@@ -25,4 +63,4 @@ const deleteMagazine = (id) => {
   };
 };
 
-export { addMagazine, editMagazine, deleteMagazine };
+export { fetchMagazines, addMagazine, editMagazine, deleteMagazine };
