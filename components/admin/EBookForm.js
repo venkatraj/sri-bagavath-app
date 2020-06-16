@@ -37,7 +37,7 @@ const EBookForm = (props) => {
     Keyboard.dismiss();
     setIsSubmitting(true);
     if (id) {
-      dispatch(editEBook(id, values));
+      await dispatch(editEBook(id, values));
       setIsSubmitting(false);
     } else {
       await dispatch(addEBook(values, name, uri));
@@ -68,7 +68,6 @@ const EBookForm = (props) => {
           errors,
           touched,
           isValid,
-          setFieldValue,
         }) => (
           <View>
             <TextInput
