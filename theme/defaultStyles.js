@@ -19,7 +19,7 @@ const defaultStyles = StyleSheet.create({
     position: 'absolute',
     margin: 20,
     right: 0,
-    bottom: 0,
+    bottom: 50,
   },
   occupy: {
     flex: 1,

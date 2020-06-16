@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Card, Button, Title, Paragraph } from 'react-native-paper';
+import { Card, Button, Title, Paragraph, Snackbar } from 'react-native-paper';
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
 
 import defaultStyles from '../theme/defaultStyles';
 
 const EBookItem = (props) => {
+  const onDownload = props.onDownload;
   const { title, fileName, downloadUrl, description } = props.ebookData;
 
   const downloadEBook = async () => {
@@ -21,15 +22,14 @@ const EBookItem = (props) => {
           permission = await MediaLibrary.requestPermissionsAsync();
         }
         if (permission.granted) {
-          console.log('Now we can save');
           const asset = await MediaLibrary.createAssetAsync(uri);
           const album = await MediaLibrary.createAlbumAsync(
             'Sri Bagavath',
             asset
           );
-          console.log(album, 'Should show a snack bar');
+          onDownload('downloaded!');
         } else {
-          console.log('show snack bar not saved message');
+          onDownload('not downloaded!');
         }
       } else {
         throw Error('File download not successful');

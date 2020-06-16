@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Card, FAB, Snackbar, HelperText } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
 import EBookItem from '../../components/EBookItem';
-import { deleteEBook } from '../../store/actions/ebooks';
+import { fetchEBooks, deleteEBook } from '../../store/actions/ebooks';
 
 const EBooksAdminScreen = (props) => {
   const { navigation } = props;
   const ebooks = useSelector((state) => state.ebooks);
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
+  const [snackbarMsg, setSnackbarMsg] = useState('');
+
+  useEffect(() => {
+    dispatch(fetchEBooks());
+  }, [dispatch]);
 
   const onPress = (id = null) => {
     navigation.push('EBooksAdmin', {
@@ -26,11 +31,17 @@ const EBooksAdminScreen = (props) => {
     const onDelete = () => {
       dispatch(deleteEBook(id));
       setVisibility(true);
+      setSnackbarMsg('deleted!');
+    };
+
+    const onDownload = (msg) => {
+      setVisibility(true);
+      setSnackbarMsg(msg);
     };
 
     return (
       <View>
-        <EBookItem ebookData={itemData.item} />
+        <EBookItem ebookData={itemData.item} onDownload={onDownload} />
         <Card style={defaultStyles.btnContainer}>
           <Card.Actions style={defaultStyles.rowSpaced}>
             <Button onPress={onDelete}>Delete</Button>
@@ -61,7 +72,7 @@ const EBooksAdminScreen = (props) => {
               },
             }}
           >
-            EBook deleted.
+            EBook {snackbarMsg}.
           </Snackbar>
         </View>
       )}

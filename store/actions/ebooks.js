@@ -1,6 +1,32 @@
 import { database } from '../../firebase/firebase';
 import uriToBlob from '../../utils/uriToBlob';
 import uploadToFirebase from '../../utils/uploadToFirebase';
+import EBook from '../../models/EBook';
+
+const fetchEBooks = () => {
+  return async (dispatch) => {
+    const ebooks = [];
+    database.ref('ebooks').once('value', (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        const {
+          title,
+          description,
+          fileName,
+          downloadUrl,
+        } = childSnapshot.val();
+        const ebook = new EBook(
+          childSnapshot.key,
+          title,
+          description,
+          fileName,
+          downloadUrl
+        );
+        ebooks.push(ebook);
+      });
+      dispatch({ type: 'SET_EBOOKS', ebooks });
+    });
+  };
+};
 
 const addEBook = (values, fileName, uri) => {
   return async (dispatch) => {
@@ -13,12 +39,9 @@ const addEBook = (values, fileName, uri) => {
     } catch (e) {
       console.error(e);
     }
-    const ebook = {
-      ...values,
-      fileName,
-      downloadUrl,
-    };
-    await database.ref('ebooks').push(ebook);
+    const res = await database.ref('ebooks').push(ebook);
+
+    const ebook = new EBook(res.key, ...values, fileName, downloadUrl);
     dispatch({
       type: 'ADD_EBOOK',
       ebook,
@@ -41,4 +64,4 @@ const deleteEBook = (id) => {
   };
 };
 
-export { addEBook, editEBook, deleteEBook };
+export { fetchEBooks, addEBook, editEBook, deleteEBook };

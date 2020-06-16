@@ -14,7 +14,6 @@ const EventsAdminScreen = (props) => {
   const [visibility, setVisibility] = useState(false);
 
   const onPress = (id = null) => {
-    console.log(id);
     navigation.push('EventsAdmin', {
       screen: 'Event',
       params: { id },

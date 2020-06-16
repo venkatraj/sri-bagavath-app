@@ -1,8 +1,10 @@
 class EBook {
-  constructor(id, title, url, description = '') {
-    (this.id = id), (this.title = title);
-    this.url = url;
+  constructor(id, title, description, fileName, downloadUrl) {
+    this.id = id;
+    this.title = title;
     this.description = description;
+    this.fileName = fileName;
+    this.downloadUrl = downloadUrl;
   }
 }
 
