@@ -1,11 +1,13 @@
 class Event {
-  constructor(id, name, host, venue, price, date) {
+  constructor(id, title, description, host, venue, price, startDate, endDate) {
     this.id = id;
-    this.name = name;
+    this.title = title;
+    this.description = description;
     this.host = host;
     this.venue = venue;
     this.price = price;
-    this.date = date;
+    this.startDate = startDate;
+    this.endDate = endDate;
   }
 }
 

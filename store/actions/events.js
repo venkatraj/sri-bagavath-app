@@ -1,12 +1,77 @@
 import { database } from '../../firebase/firebase';
-const addEvent = (event) => {
-  return async (dispatch) => {
-    await database.ref('events').push(event);
+import Event from '../../models/Event';
 
-    dispatch({
-      type: 'ADD_EVENT',
-      event,
+const fetchEvents = () => {
+  return async (dispatch) => {
+    const events = [];
+    database.ref('events').once('value', (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        const {
+          title,
+          description,
+          host,
+          venue,
+          price,
+          startDate,
+          endDate,
+        } = childSnapshot.val();
+        const event = new Event(
+          childSnapshot.key,
+          title,
+          description,
+          host,
+          venue,
+          price,
+          startDate,
+          endDate
+        );
+        events.push(event);
+      });
+      dispatch({ type: 'SET_EVENTS', events });
     });
+  };
+};
+
+const addEvent = (values) => {
+  return async (dispatch) => {
+    const {
+      title,
+      description,
+      host,
+      venue,
+      price,
+      startDate,
+      endDate,
+    } = values;
+    try {
+      const res = await database.ref('events').push({
+        title,
+        description,
+        host,
+        venue,
+        price,
+        startDate,
+        endDate,
+      });
+
+      const event = new Event(
+        res.key,
+        title,
+        description,
+        host,
+        venue,
+        price,
+        startDate,
+        endDate
+      );
+
+      dispatch({
+        type: 'ADD_EVENT',
+        event,
+      });
+    } catch (e) {
+      console.error(e);
+    }
   };
 };
 
@@ -25,4 +90,4 @@ const deleteEvent = (id) => {
   };
 };
 
-export { addEvent, editEvent, deleteEvent };
+export { fetchEvents, addEvent, editEvent, deleteEvent };

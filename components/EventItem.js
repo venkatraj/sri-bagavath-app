@@ -1,33 +1,31 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Button, Card, Title, Subheading, Paragraph } from 'react-native-paper';
+import {
+  Button,
+  Card,
+  Title,
+  Subheading,
+  Paragraph,
+  Snackbar,
+} from 'react-native-paper';
 
 import defaultStyles from '../theme/defaultStyles';
 
 const EventItem = (props) => {
   const { eventData: event, onPress } = props;
-  const { id, name, host, venue, price, date } = event;
+  const { title, description, host, venue, price, startDate, endDate } = event;
 
   return (
     <Card style={defaultStyles.item}>
       <Card.Content>
-        <Title>{name}</Title>
+        <Title>{title}</Title>
         <Subheading>வழங்குபவர்: {host}</Subheading>
         <Paragraph>நடைபெறும் இடம்: {venue}</Paragraph>
         <Paragraph>
-          நாள்: {date instanceof Date ? date.toDateString() : date}
+          நாள்: {startDate} - {endDate}
         </Paragraph>
+        <Paragraph>Rs. {price}/-</Paragraph>
       </Card.Content>
-      <Card.Actions style={defaultStyles.rowSpaced}>
-        <Button
-          onPress={() => {
-            onPress(id);
-          }}
-        >
-          View Details
-        </Button>
-        <Paragraph>{price}</Paragraph>
-      </Card.Actions>
     </Card>
   );
 };

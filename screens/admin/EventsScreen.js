@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Card, FAB, Snackbar, HelperText } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
 import EventItem from '../../components/EventItem';
-import { deleteEvent } from '../../store/actions/events';
+import { fetchEvents, deleteEvent } from '../../store/actions/events';
 
 const EventsAdminScreen = (props) => {
   const { navigation } = props;
   const events = useSelector((state) => state.events);
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
+  const [snackbarMsg, setSnackbarMsg] = useState('');
+
+  useEffect(() => {
+    dispatch(fetchEvents());
+  }, [dispatch]);
 
   const onPress = (id = null) => {
     navigation.push('EventsAdmin', {
@@ -26,12 +31,13 @@ const EventsAdminScreen = (props) => {
     const onDelete = () => {
       dispatch(deleteEvent(id));
       setVisibility(true);
+      setSnackbarMsg('deleted!');
     };
 
     return (
       <View>
         <EventItem eventData={itemData.item} />
-        <Card>
+        <Card style={defaultStyles.btnContainer}>
           <Card.Actions style={defaultStyles.rowSpaced}>
             <Button onPress={onDelete}>Delete</Button>
             <Button onPress={() => onPress(id)}>Edit</Button>
@@ -62,7 +68,7 @@ const EventsAdminScreen = (props) => {
               },
             }}
           >
-            Event deleted!
+            Event {snackbarMsg}.
           </Snackbar>
         </View>
       )}

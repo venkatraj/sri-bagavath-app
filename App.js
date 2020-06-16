@@ -11,7 +11,10 @@ import fetchFonts from './utils/fetchFonts';
 
 const store = configureStore();
 // populateData(store);
-// const subscribe = store.subscribe(() => console.log(store.getState().ebooks));
+const subscribe = store.subscribe(() =>
+  // console.log(store.getState().magazines)
+  console.log('App')
+);
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
