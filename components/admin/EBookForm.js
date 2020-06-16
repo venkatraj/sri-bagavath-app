@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Keyboard, View, Text } from 'react-native';
+import { Keyboard, View } from 'react-native';
 import {
   ActivityIndicator,
   Button,
-  Colors,
   TextInput,
   HelperText,
-  Switch,
 } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
@@ -15,7 +13,6 @@ import * as DocumentPicker from 'expo-document-picker';
 
 import getEBook from '../../utils/getEBook';
 import { addEBook, editEBook } from '../../store/actions/ebooks';
-import { firebase } from '../../firebase/firebase';
 
 const EBookForm = (props) => {
   const { id, onSubmitHandler } = props;
@@ -54,8 +51,8 @@ const EBookForm = (props) => {
     <View>
       <Formik
         initialValues={{
-          title: '',
-          description: '',
+          title: ebook ? ebook.title : '',
+          description: ebook ? ebook.description : '',
         }}
         onSubmit={onSubmit}
         validationSchema={yup.object().shape({
