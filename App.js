@@ -1,18 +1,32 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
 import { Provider as StoreProvider } from 'react-redux';
+import { AppLoading } from 'expo';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 import AppNavigator from './navigation/AppNavigator';
 import configureStore from './store/configureStore';
-import populateData from './data/populate';
-import { database } from './firebase/firebase';
+import fetchFonts from './utils/fetchFonts';
+// import populateData from './data/populate';
+// import { database } from './firebase/firebase';
 
 const store = configureStore();
 // populateData(store);
-const subscribe = store.subscribe(() => console.log(store.getState().products));
+// const subscribe = store.subscribe(() => console.log(store.getState().ebooks));
 
 export default function App() {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  if (!fontLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => {
+          setFontLoaded(true);
+        }}
+      />
+    );
+  }
+
   return (
     <StoreProvider store={store}>
       <PaperProvider>
@@ -21,12 +35,3 @@ export default function App() {
     </StoreProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
