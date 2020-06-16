@@ -30,22 +30,33 @@ const fetchEBooks = () => {
 
 const addEBook = (values, fileName, uri) => {
   return async (dispatch) => {
+    const { title, description } = values;
     let downloadUrl;
     try {
       const blob = await uriToBlob(uri);
       const snapshot = await uploadToFirebase(blob, fileName);
       downloadUrl = await snapshot.ref.getDownloadURL();
-      await database.ref('ebooks').push(ebook);
+      const res = await database.ref('ebooks').push({
+        title,
+        description,
+
+        fileName,
+        uri,
+      });
+      const ebook = new EBook(
+        res.key,
+        title,
+        description,
+        fileName,
+        downloadUrl
+      );
+      dispatch({
+        type: 'ADD_EBOOK',
+        ebook,
+      });
     } catch (e) {
       console.error(e);
     }
-    const res = await database.ref('ebooks').push(ebook);
-
-    const ebook = new EBook(res.key, ...values, fileName, downloadUrl);
-    dispatch({
-      type: 'ADD_EBOOK',
-      ebook,
-    });
   };
 };
 
