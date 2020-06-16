@@ -25,12 +25,12 @@ const EBookForm = (props) => {
     ebook = getEBook(id, ebooks);
   }
 
-  const chooseEBook = () => {
-    DocumentPicker.getDocumentAsync().then((result) => {
-      if (result.type !== 'cancel') {
-        ({ uri, name } = result);
-      }
-    });
+  const chooseEBook = async (setFieldValue) => {
+    const result = await DocumentPicker.getDocumentAsync();
+    if (result.type !== 'cancel') {
+      ({ uri, name } = result);
+      setFieldValue('ebook', name);
+    }
   };
 
   const onSubmit = async (values) => {
@@ -53,11 +53,13 @@ const EBookForm = (props) => {
         initialValues={{
           title: ebook ? ebook.title : '',
           description: ebook ? ebook.description : '',
+          ebook: ebook ? ebook.downloadUrl : '',
         }}
         onSubmit={onSubmit}
         validationSchema={yup.object().shape({
           title: yup.string().min(5).required(),
           description: yup.string().min(5).required(),
+          ebook: yup.string().required(),
         })}
       >
         {({
@@ -68,6 +70,7 @@ const EBookForm = (props) => {
           errors,
           touched,
           isValid,
+          setFieldValue,
         }) => (
           <View>
             <TextInput
@@ -91,7 +94,25 @@ const EBookForm = (props) => {
               multiline
               numberOfLines={3}
             />
-            <Button onPress={chooseEBook}>Choose EBook</Button>
+            {touched.description && errors.description ? (
+              <HelperText>{errors.description}</HelperText>
+            ) : null}
+            <TextInput
+              label="EBook"
+              id="ebook"
+              name="ebook"
+              value={values.ebook}
+            />
+            {touched.ebook && errors.ebook ? (
+              <HelperText>{errors.ebook}</HelperText>
+            ) : null}
+            <Button
+              onPress={() => {
+                chooseEBook(setFieldValue);
+              }}
+            >
+              Choose EBook
+            </Button>
             <Button disabled={!isValid} onPress={handleSubmit}>
               Submit
             </Button>

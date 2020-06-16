@@ -1,10 +1,10 @@
 import { firebase } from '../firebase/firebase';
 
-const uploadToFirebase = (blob, fileName) => {
+const uploadToFirebase = (blob, path, fileName) => {
   return new Promise((resolve, reject) => {
     var storageRef = firebase.storage().ref();
     storageRef
-      .child(`ebooks/${fileName}`)
+      .child(`${path}/${fileName}`)
       .put(blob, {
         contentType: 'application/pdf',
       })

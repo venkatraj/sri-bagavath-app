@@ -34,14 +34,13 @@ const addEBook = (values, fileName, uri) => {
     let downloadUrl;
     try {
       const blob = await uriToBlob(uri);
-      const snapshot = await uploadToFirebase(blob, fileName);
+      const snapshot = await uploadToFirebase(blob, 'ebooks', fileName);
       downloadUrl = await snapshot.ref.getDownloadURL();
       const res = await database.ref('ebooks').push({
         title,
         description,
-
         fileName,
-        uri,
+        downloadUrl,
       });
       const ebook = new EBook(
         res.key,
