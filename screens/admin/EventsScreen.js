@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -8,6 +8,7 @@ import {
   FAB,
   Snackbar,
   HelperText,
+  Title,
 } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
@@ -21,15 +22,22 @@ const EventsAdminScreen = (props) => {
   const [visibility, setVisibility] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const loadEvents = async () => {
-      setIsLoading(true);
+  const loadEvents = useCallback(async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
       await dispatch(fetchEvents());
       setIsLoading(false);
-    };
+    } catch (e) {
+      setError(e.message);
+    }
+  }, [dispatch, setError, setIsLoading]);
+
+  useEffect(() => {
     loadEvents();
-  }, [dispatch]);
+  }, [loadEvents]);
 
   const onPress = (id = null) => {
     navigation.push('EventsAdmin', {
@@ -60,6 +68,15 @@ const EventsAdminScreen = (props) => {
     );
   };
 
+  if (error) {
+    return (
+      <View style={defaultStyles.centered}>
+        <HelperText>{error}</HelperText>
+        <Button onPress={loadEvents}>Try again!</Button>
+      </View>
+    );
+  }
+
   if (isLoading) {
     return (
       <View style={defaultStyles.centered}>
@@ -85,6 +102,7 @@ const EventsAdminScreen = (props) => {
   return (
     <View style={defaultStyles.occupy}>
       <View>
+        <Title style={defaultStyles.title}>Events</Title>
         <FlatList data={events} renderItem={renderEvent} />
 
         <Snackbar

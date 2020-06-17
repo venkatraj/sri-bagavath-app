@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -8,6 +8,7 @@ import {
   FAB,
   Snackbar,
   HelperText,
+  Title,
 } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
@@ -21,15 +22,22 @@ const EBooksAdminScreen = (props) => {
   const [visibility, setVisibility] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const loadEBooks = async () => {
-      setIsLoading(true);
+  const loadEBooks = useCallback(async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
       await dispatch(fetchEBooks());
       setIsLoading(false);
-    };
+    } catch (e) {
+      setError(e.message);
+    }
+  }, [dispatch, setError, setIsLoading]);
+
+  useEffect(() => {
     loadEBooks();
-  }, [dispatch]);
+  }, [loadEBooks]);
 
   const onPress = (id = null) => {
     navigation.push('EBooksAdmin', {
@@ -65,6 +73,15 @@ const EBooksAdminScreen = (props) => {
     );
   };
 
+  if (error) {
+    return (
+      <View style={defaultStyles.centered}>
+        <HelperText>{error}</HelperText>
+        <Button onPress={loadEBooks}>Try again!</Button>
+      </View>
+    );
+  }
+
   if (isLoading) {
     return (
       <View style={defaultStyles.centered}>
@@ -90,6 +107,7 @@ const EBooksAdminScreen = (props) => {
   return (
     <View style={defaultStyles.occupy}>
       <View>
+        <Title style={defaultStyles.title}>EBooks</Title>
         <FlatList data={ebooks} renderItem={renderEBook} />
         <Snackbar
           visible={visibility}

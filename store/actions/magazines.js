@@ -5,8 +5,14 @@ import Magazine from '../../models/Magazine';
 
 const fetchMagazines = () => {
   return async (dispatch) => {
-    const magazines = [];
-    database.ref('magazines').once('value', (snapshot) => {
+    try {
+      const snapshot = await database.ref('magazines').once('value');
+
+      if (!snapshot.val()) {
+        throw new Error("Can't read magazines from database!");
+      }
+
+      const magazines = [];
       snapshot.forEach((childSnapshot) => {
         const { date, fileName, downloadUrl } = childSnapshot.val();
         const magazine = new Magazine(
@@ -18,7 +24,9 @@ const fetchMagazines = () => {
         magazines.push(magazine);
       });
       dispatch({ type: 'SET_MAGAZINES', magazines });
-    });
+    } catch (e) {
+      throw e;
+    }
   };
 };
 

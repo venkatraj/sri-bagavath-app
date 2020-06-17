@@ -8,6 +8,7 @@ import {
   FAB,
   Snackbar,
   HelperText,
+  Title,
 } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
@@ -69,7 +70,7 @@ const ShopAdminScreen = (props) => {
     return (
       <View style={defaultStyles.centered}>
         <HelperText>{error}</HelperText>
-        <Button onPress={() => {}}>Try again!</Button>
+        <Button onPress={loadProducts}>Try again!</Button>
       </View>
     );
   }
@@ -99,6 +100,7 @@ const ShopAdminScreen = (props) => {
   return (
     <View style={defaultStyles.occupy}>
       <View>
+        <Title style={defaultStyles.title}>Products</Title>
         <FlatList data={products} renderItem={renderProduct} />
 
         <Snackbar

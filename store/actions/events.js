@@ -3,8 +3,14 @@ import Event from '../../models/Event';
 
 const fetchEvents = () => {
   return async (dispatch) => {
-    const events = [];
-    database.ref('events').once('value', (snapshot) => {
+    try {
+      const snapshot = await database.ref('events').once('value');
+
+      if (!snapshot.val()) {
+        throw new Error("Can't read events from database!");
+      }
+
+      const events = [];
       snapshot.forEach((childSnapshot) => {
         const {
           title,
@@ -28,7 +34,9 @@ const fetchEvents = () => {
         events.push(event);
       });
       dispatch({ type: 'SET_EVENTS', events });
-    });
+    } catch (e) {
+      throw e;
+    }
   };
 };
 

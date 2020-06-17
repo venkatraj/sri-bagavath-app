@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -8,6 +8,7 @@ import {
   FAB,
   Snackbar,
   HelperText,
+  Title,
 } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
@@ -21,15 +22,22 @@ const MagazinesAdminScreen = (props) => {
   const [visibility, setVisibility] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const loadMagazines = async () => {
-      setIsLoading(true);
+  const loadMagazines = useCallback(async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
       await dispatch(fetchMagazines());
       setIsLoading(false);
-    };
+    } catch (e) {
+      setError(e.message);
+    }
+  }, [dispatch, setError, setIsLoading]);
+
+  useEffect(() => {
     loadMagazines();
-  }, [dispatch]);
+  }, [loadMagazines]);
 
   const onPress = (id = null) => {
     navigation.push('MagazinesAdmin', {
@@ -65,6 +73,15 @@ const MagazinesAdminScreen = (props) => {
     );
   };
 
+  if (error) {
+    return (
+      <View style={defaultStyles.centered}>
+        <HelperText>{error}</HelperText>
+        <Button onPress={loadMagazines}>Try again!</Button>
+      </View>
+    );
+  }
+
   if (isLoading) {
     return (
       <View style={defaultStyles.centered}>
@@ -89,6 +106,7 @@ const MagazinesAdminScreen = (props) => {
   return (
     <View style={defaultStyles.occupy}>
       <View>
+        <Title style={defaultStyles.title}>Magazines</Title>
         <FlatList data={magazines} renderItem={renderMagazine} />
         <Snackbar
           visible={visibility}

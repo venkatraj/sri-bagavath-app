@@ -5,8 +5,14 @@ import EBook from '../../models/EBook';
 
 const fetchEBooks = () => {
   return async (dispatch) => {
-    const ebooks = [];
-    database.ref('ebooks').once('value', (snapshot) => {
+    try {
+      const snapshot = await database.ref('ebooks').once('value');
+
+      if (!snapshot.val()) {
+        throw new Error("Can't read ebooks from database!");
+      }
+
+      const ebooks = [];
       snapshot.forEach((childSnapshot) => {
         const {
           title,
@@ -24,7 +30,9 @@ const fetchEBooks = () => {
         ebooks.push(ebook);
       });
       dispatch({ type: 'SET_EBOOKS', ebooks });
-    });
+    } catch (e) {
+      throw e;
+    }
   };
 };
 
