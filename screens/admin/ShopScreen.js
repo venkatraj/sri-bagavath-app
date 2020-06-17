@@ -22,15 +22,20 @@ const ShopAdminScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const loadProducts = useCallback(async () => {
     setError(null);
     setIsLoading(true);
-    dispatch(fetchProducts())
-      .then(() => setIsLoading(false))
-      .catch((e) => {
-        setError(e.message);
-      });
-  }, [dispatch]);
+    try {
+      await dispatch(fetchProducts());
+      setIsLoading(false);
+    } catch (e) {
+      setError(e.message);
+    }
+  }, [dispatch, setError, setIsLoading]);
+
+  useEffect(() => {
+    loadProducts();
+  }, [loadProducts]);
 
   const onPress = (id = null) => {
     navigation.push('ShopAdmin', {
