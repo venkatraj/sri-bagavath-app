@@ -111,7 +111,7 @@ const EBooksAdminScreen = (props) => {
 
   return (
     <View style={defaultStyles.occupy}>
-      <View>
+      <View style={defaultStyles.bottomSpace}>
         <Title style={defaultStyles.title}>EBooks</Title>
         <FlatList data={ebooks} renderItem={renderEBook} />
         <Snackbar

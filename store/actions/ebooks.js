@@ -8,9 +8,11 @@ const fetchEBooks = () => {
     try {
       const snapshot = await database.ref('ebooks').once('value');
 
-      if (!snapshot.val()) {
-        throw new Error("Can't read ebooks from database!");
-      }
+      // IMPORTANT: removing this because this doesn't known the difference
+      // between non existing path and empty dataset
+      // if (!snapshot.val()) {
+      //   throw new Error("Can't read ebooks from database!");
+      // }
 
       const ebooks = [];
       snapshot.forEach((childSnapshot) => {
@@ -68,17 +70,29 @@ const addEBook = (values, fileName, uri) => {
 };
 
 const editEBook = (id, updates) => {
-  return {
-    type: 'EDIT_EBOOK',
-    id,
-    updates,
+  return async (dispatch) => {
+    const { title, description } = updates;
+    database.ref(`ebooks/${id}`).update({
+      title,
+      description,
+    });
+
+    dispatch({
+      type: 'EDIT_EBOOK',
+      id,
+      updates,
+    });
   };
 };
 
 const deleteEBook = (id) => {
-  return {
-    type: 'DELETE_EBOOK',
-    id,
+  return async (dispatch) => {
+    database.ref(`ebooks/${id}`).remove();
+
+    dispatch({
+      type: 'DELETE_EBOOK',
+      id,
+    });
   };
 };
 

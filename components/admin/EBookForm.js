@@ -106,13 +106,15 @@ const EBookForm = (props) => {
             {touched.ebook && errors.ebook ? (
               <HelperText>{errors.ebook}</HelperText>
             ) : null}
-            <Button
-              onPress={() => {
-                chooseEBook(setFieldValue);
-              }}
-            >
-              Choose EBook
-            </Button>
+            {!ebook && (
+              <Button
+                onPress={() => {
+                  chooseEBook(setFieldValue);
+                }}
+              >
+                Choose EBook
+              </Button>
+            )}
             <Button disabled={!isValid} onPress={handleSubmit}>
               Submit
             </Button>
