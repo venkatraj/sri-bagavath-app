@@ -1,12 +1,16 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Button, Card, Title, Paragraph } from 'react-native-paper';
+import { Card, Button, Title, Paragraph, Snackbar } from 'react-native-paper';
+import * as FileSystem from 'expo-file-system';
+import * as MediaLibrary from 'expo-media-library';
+
 
 import defaultStyles from '../theme/defaultStyles';
 
 const ProductItem = (props) => {
   const { productData: product, onPress, isAuth } = props;
-  const { id, title, description, imageUrl, price, category } = product;
+  const { id, title, description, imageUrl, price, category, language } = product;
+
   return (
     <Card style={defaultStyles.item}>
       <Card.Content>

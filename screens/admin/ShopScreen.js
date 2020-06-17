@@ -5,13 +5,17 @@ import { Card, Button, FAB, Snackbar, HelperText } from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
 import ProductItem from '../../components/ProductItem';
-import { deleteProduct } from '../../store/actions/products';
+import { fetchProducts, deleteProduct } from '../../store/actions/products';
 
 const ShopAdminScreen = (props) => {
   const { navigation } = props;
   let products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   const onPress = (id = null) => {
     navigation.push('ShopAdmin', {
@@ -31,7 +35,7 @@ const ShopAdminScreen = (props) => {
     return (
       <View>
         <ProductItem isAuth={true} productData={itemData.item} />
-        <Card>
+        <Card style={defaultStyles.btnContainer}>
           <Card.Actions style={defaultStyles.rowSpaced}>
             <Button onPress={onDelete}>Delete</Button>
             <Button onPress={() => onPress(id)}>Edit</Button>
@@ -44,7 +48,9 @@ const ShopAdminScreen = (props) => {
   return (
     <View style={defaultStyles.occupy}>
       {products.length === 0 ? (
-        <HelperText>No products found!. Add Some</HelperText>
+        <View>
+          <HelperText>No products found!. Add Some</HelperText>
+        </View>
       ) : (
         <View>
           <FlatList data={products} renderItem={renderProduct} />

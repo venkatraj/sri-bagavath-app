@@ -1,5 +1,7 @@
 const productsReducer = (state = [], action) => {
   switch (action.type) {
+    case 'SET_PRODUCTS':
+      return action.products;
     case 'ADD_PRODUCT':
       return [...state, action.product];
     case 'EDIT_PRODUCT':
