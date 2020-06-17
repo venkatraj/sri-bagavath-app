@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -20,14 +20,16 @@ const ShopAdminScreen = (props) => {
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      setIsLoading(true);
-      await dispatch(fetchProducts());
-      setIsLoading(false);
-    };
-    loadProducts();
+    setError(null);
+    setIsLoading(true);
+    dispatch(fetchProducts())
+      .then(() => setIsLoading(false))
+      .catch((e) => {
+        setError(e.message);
+      });
   }, [dispatch]);
 
   const onPress = (id = null) => {
@@ -57,6 +59,15 @@ const ShopAdminScreen = (props) => {
       </View>
     );
   };
+
+  if (error) {
+    return (
+      <View style={defaultStyles.centered}>
+        <HelperText>{error}</HelperText>
+        <Button onPress={() => {}}>Try again!</Button>
+      </View>
+    );
+  }
 
   if (isLoading) {
     return (

@@ -1,4 +1,4 @@
-import { database } from '../../firebase/firebase';
+import { firebase, database } from '../../firebase/firebase';
 import uriToBlob from '../../utils/uriToBlob';
 import uploadToFirebase from '../../utils/uploadToFirebase';
 import Product from '../../models/Product';
@@ -6,33 +6,36 @@ import Product from '../../models/Product';
 const fetchProducts = () => {
   return async (dispatch) => {
     try {
+      const snapshot = await database.ref('products').once('value');
+
+      if (!snapshot.val()) {
+        throw new Error("Can't read products from database!");
+      }
+
       const products = [];
-      database.ref('products').once('value', (snapshot) => {
-        snapshot.forEach((childSnapshot) => {
-          const {
-            title,
-            description,
-            price,
-            category,
-            language,
-            fileName,
-            downloadUrl,
-          } = childSnapshot.val();
-          const product = new Product(
-            childSnapshot.key,
-            title,
-            description,
-            price,
-            category,
-            language,
-            downloadUrl
-          );
-          products.push(product);
-        });
-        dispatch({ type: 'SET_PRODUCTS', products });
+      snapshot.forEach((childSnapshot) => {
+        const {
+          title,
+          description,
+          price,
+          category,
+          language,
+          fileName,
+          downloadUrl,
+        } = childSnapshot.val();
+        const product = new Product(
+          childSnapshot.key,
+          title,
+          description,
+          price,
+          category,
+          language,
+          downloadUrl
+        );
+        products.push(product);
       });
+      dispatch({ type: 'SET_PRODUCTS', products });
     } catch (e) {
-      // may be send error crash report
       throw e;
     }
   };
