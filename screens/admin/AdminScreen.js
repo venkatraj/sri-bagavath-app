@@ -1,7 +1,9 @@
 import React from 'react';
 import { FlatList, SafeAreaView, Text, StyleSheet } from 'react-native';
+import { Title } from 'react-native-paper';
 
 import TouchableCard from '../../components/TouchableCard';
+import defaultStyles from '../../theme/defaultStyles';
 
 const AdminScreen = (props) => {
   const { navigation } = props;
@@ -44,7 +46,9 @@ const AdminScreen = (props) => {
       data={screens}
       renderItem={renderCards}
       numColumns={2}
-      ListHeaderComponent={() => <Text>Administration</Text>}
+      ListHeaderComponent={() => (
+        <Title style={defaultStyles.title}>Administration</Title>
+      )}
     />
   );
 };

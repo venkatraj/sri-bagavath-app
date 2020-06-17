@@ -11,6 +11,10 @@ const defaultStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  title: {
+    textAlign: 'center',
+    marginVertical: 15,
+  },
   centeredText: {
     textAlign: 'center',
   },
