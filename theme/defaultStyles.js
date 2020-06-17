@@ -13,7 +13,6 @@ const defaultStyles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    marginVertical: 15,
   },
   centeredText: {
     textAlign: 'center',
@@ -28,6 +27,7 @@ const defaultStyles = StyleSheet.create({
   },
   occupy: {
     flex: 1,
+    marginVertical: 20,
   },
 });
 

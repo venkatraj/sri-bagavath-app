@@ -8,9 +8,11 @@ const fetchProducts = () => {
     try {
       const snapshot = await database.ref('products').once('value');
 
-      if (!snapshot.val()) {
-        throw new Error("Can't read products from database!");
-      }
+      // IMPORTANT: removing this because this doesn't known the difference
+      // between non existing path and empty dataset
+      // if (!snapshot.val()) {
+      //   throw new Error("Can't read products from database!");
+      // }
 
       const products = [];
       snapshot.forEach((childSnapshot) => {
@@ -20,8 +22,7 @@ const fetchProducts = () => {
           price,
           category,
           language,
-          fileName,
-          downloadUrl,
+          imageUrl,
         } = childSnapshot.val();
         const product = new Product(
           childSnapshot.key,
@@ -30,7 +31,7 @@ const fetchProducts = () => {
           price,
           category,
           language,
-          downloadUrl
+          imageUrl
         );
         products.push(product);
       });
@@ -68,6 +69,7 @@ const addProduct = (values, fileName, uri) => {
         language,
         imageUrl
       );
+      console.log('Adding Product', product);
       dispatch({
         type: 'ADD_PRODUCT',
         product,
@@ -79,17 +81,27 @@ const addProduct = (values, fileName, uri) => {
 };
 
 const editProduct = (id, updates) => {
-  return {
-    type: 'EDIT_PRODUCT',
-    id,
-    updates,
+  return async (dispatch) => {
+    const { title, description, price, category, language } = updates;
+    await database.ref(`products/${id}`).update({
+      title,
+      description,
+      price,
+      category,
+      language,
+    });
+    dispatch({
+      type: 'EDIT_PRODUCT',
+      id,
+      updates,
+    });
   };
 };
 
 const deleteProduct = (id) => {
-  return {
-    type: 'DELETE_PRODUCT',
-    id,
+  return async (dispatch) => {
+    await database.ref(`products/${id}`).remove();
+    dispatch({ type: 'DELETE_PRODUCT', id });
   };
 };
 

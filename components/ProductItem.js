@@ -4,12 +4,21 @@ import { Card, Button, Title, Paragraph, Snackbar } from 'react-native-paper';
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
 
-
 import defaultStyles from '../theme/defaultStyles';
 
 const ProductItem = (props) => {
   const { productData: product, onPress, isAuth } = props;
-  const { id, title, description, imageUrl, price, category, language } = product;
+  const {
+    id,
+    title,
+    description,
+    imageUrl,
+    price,
+    category,
+    language,
+  } = product;
+
+  console.log(imageUrl);
 
   return (
     <Card style={defaultStyles.item}>
@@ -18,6 +27,7 @@ const ProductItem = (props) => {
         <Paragraph>Price: Rs.{price}</Paragraph>
         <Paragraph>Available as: {category}</Paragraph>
       </Card.Content>
+      <Card.Cover source={{ uri: imageUrl }} />
       {!isAuth ? (
         <Card.Actions style={defaultStyles.rowSpaced}>
           <Button

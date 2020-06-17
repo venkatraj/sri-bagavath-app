@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, ScrollView, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   ActivityIndicator,
@@ -103,7 +103,7 @@ const ShopAdminScreen = (props) => {
   }
 
   return (
-    <View style={defaultStyles.occupy}>
+    <ScrollView style={defaultStyles.occupy}>
       <View>
         <Title style={defaultStyles.title}>Products</Title>
         <FlatList data={products} renderItem={renderProduct} />
@@ -128,7 +128,7 @@ const ShopAdminScreen = (props) => {
         icon="plus"
         onPress={() => onPress()}
       />
-    </View>
+    </ScrollView>
   );
 };
 

@@ -55,6 +55,7 @@ const ProductForm = (props) => {
           price: product ? product.price.toString() : '',
           category: product ? product.category : 'Book',
           language: product ? product.language : 'Tamil',
+          productImage: product ? product.imageUrl : '',
         }}
         onSubmit={onSubmit}
         validationSchema={yup.object().shape({
@@ -135,20 +136,27 @@ const ProductForm = (props) => {
             {touched.language && errors.language ? (
               <HelperText>{errors.language}</HelperText>
             ) : null}
-            <TextInput
-              label="Product Image"
-              id="productImage"
-              name="productImage"
-              onChangeText={handleChange('productImage')}
-              onBlur={handleBlur('productImage')}
-              value={values.productImage}
-            />
-            {touched.productImage && errors.productImage ? (
-              <HelperText>{errors.productImage}</HelperText>
-            ) : null}
-            <Button onPress={() => chooseProductImage(setFieldValue)}>
-              Choose Product Image
-            </Button>
+            <View>
+              <TextInput
+                label="Product Image"
+                id="productImage"
+                name="productImage"
+                onChangeText={handleChange('productImage')}
+                onBlur={handleBlur('productImage')}
+                value={
+                  product ? initialValues.productImage : values.productImage
+                }
+              />
+              {touched.productImage && errors.productImage ? (
+                <HelperText>{errors.productImage}</HelperText>
+              ) : null}
+              {!product && (
+                <Button onPress={() => chooseProductImage(setFieldValue)}>
+                  Choose Product Image
+                </Button>
+              )}
+            </View>
+
             <Button disabled={!isValid} onPress={handleSubmit}>
               Submit
             </Button>

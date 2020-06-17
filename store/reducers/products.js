@@ -5,13 +5,14 @@ const productsReducer = (state = [], action) => {
     case 'ADD_PRODUCT':
       return [...state, action.product];
     case 'EDIT_PRODUCT':
-      const { title, description, price, category } = action.updates;
+      const { title, description, price, category, language } = action.updates;
       const updatedState = state.map((product) => {
         if (product.id !== action.id) return product;
         product.title = title;
         product.description = description;
         product.price = price;
         product.category = category;
+        product.language = language;
         return product;
       });
       return updatedState;
