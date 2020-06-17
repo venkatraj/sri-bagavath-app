@@ -84,17 +84,42 @@ const addEvent = (values) => {
 };
 
 const editEvent = (id, updates) => {
-  return {
-    type: 'EDIT_EVENT',
-    id,
-    updates,
+  return async (dispatch) => {
+    const {
+      title,
+      description,
+      host,
+      venue,
+      price,
+      startDate,
+      endDate,
+    } = updates;
+    await database.ref(`events/${id}`).update({
+      title,
+      description,
+      host,
+      venue,
+      price,
+      startDate,
+      endDate,
+    });
+
+    dispatch({
+      type: 'EDIT_EVENT',
+      id,
+      updates,
+    });
   };
 };
 
 const deleteEvent = (id) => {
-  return {
-    type: 'DELETE_EVENT',
-    id,
+  return async (dispatch) => {
+    await database.ref(`events/${id}`).remove();
+
+    dispatch({
+      type: 'DELETE_EVENT',
+      id,
+    });
   };
 };
 

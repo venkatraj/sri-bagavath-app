@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, ScrollView, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   ActivityIndicator,
@@ -105,7 +105,7 @@ const EventsAdminScreen = (props) => {
   }
 
   return (
-    <View style={defaultStyles.occupy}>
+    <ScrollView style={defaultStyles.occupy}>
       <View>
         <Title style={defaultStyles.title}>Events</Title>
         <FlatList data={events} renderItem={renderEvent} />
@@ -130,7 +130,7 @@ const EventsAdminScreen = (props) => {
         icon="plus"
         onPress={() => onPress()}
       />
-    </View>
+    </ScrollView>
   );
 };
 
