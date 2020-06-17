@@ -6,9 +6,11 @@ const fetchEvents = () => {
     try {
       const snapshot = await database.ref('events').once('value');
 
-      if (!snapshot.val()) {
-        throw new Error("Can't read events from database!");
-      }
+      // IMPORTANT: removing this because this doesn't known the difference
+      // between non existing path and empty dataset
+      // if (!snapshot.val()) {
+      //   throw new Error("Can't read events from database!");
+      // }
 
       const events = [];
       snapshot.forEach((childSnapshot) => {

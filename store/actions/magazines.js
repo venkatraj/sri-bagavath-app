@@ -8,9 +8,11 @@ const fetchMagazines = () => {
     try {
       const snapshot = await database.ref('magazines').once('value');
 
-      if (!snapshot.val()) {
-        throw new Error("Can't read magazines from database!");
-      }
+      // IMPORTANT: removing this because this doesn't known the difference
+      // between non existing path and empty dataset
+      // if (!snapshot.val()) {
+      //   throw new Error("Can't read magazines from database!");
+      // }
 
       const magazines = [];
       snapshot.forEach((childSnapshot) => {
@@ -40,7 +42,7 @@ const addMagazine = (values, fileName, uri) => {
       const blob = await uriToBlob(uri);
       const snapshot = await uploadToFirebase(blob, path, fileName);
       downloadUrl = await snapshot.ref.getDownloadURL();
-      const res = await database.ref('2magazines').push({
+      const res = await database.ref('magazines').push({
         date,
         fileName,
         downloadUrl,
@@ -57,17 +59,25 @@ const addMagazine = (values, fileName, uri) => {
 };
 
 const editMagazine = (id, updates) => {
-  return {
-    type: 'EDIT_MAGAZINE',
-    id,
-    updates,
+  return async (dispatch) => {
+    const { date } = updates;
+    database.ref(`magazines/${id}`).update({ date });
+    dispatch({
+      type: 'EDIT_MAGAZINE',
+      id,
+      updates,
+    });
   };
 };
 
 const deleteMagazine = (id) => {
-  return {
-    type: 'DELETE_MAGAZINE',
-    id,
+  return async (dispatch) => {
+    database.ref(`magazines/${id}`).remove();
+
+    dispatch({
+      type: 'DELETE_MAGAZINE',
+      id,
+    });
   };
 };
 

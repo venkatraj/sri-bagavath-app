@@ -98,9 +98,11 @@ const MagazineForm = (props) => {
             {touched.magazine && errors.magazine ? (
               <HelperText>{errors.magazine}</HelperText>
             ) : null}
-            <Button onPress={() => chooseMagazine(setFieldValue)}>
-              Choose Magazine
-            </Button>
+            {!magazine && (
+              <Button onPress={() => chooseMagazine(setFieldValue)}>
+                Choose Magazine
+              </Button>
+            )}
             <Button disabled={!isValid} onPress={handleSubmit}>
               Submit
             </Button>
