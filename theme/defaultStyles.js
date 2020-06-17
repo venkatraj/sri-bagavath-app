@@ -7,6 +7,7 @@ const defaultStyles = StyleSheet.create({
     marginVertical: 10,
   },
   centered: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

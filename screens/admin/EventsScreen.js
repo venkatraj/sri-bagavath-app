@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Card, FAB, Snackbar, HelperText } from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Button,
+  Card,
+  FAB,
+  Snackbar,
+  HelperText,
+} from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
 import EventItem from '../../components/EventItem';
@@ -13,9 +20,15 @@ const EventsAdminScreen = (props) => {
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchEvents());
+    const loadEvents = async () => {
+      setIsLoading(true);
+      await dispatch(fetchEvents());
+      setIsLoading(false);
+    };
+    loadEvents();
   }, [dispatch]);
 
   const onPress = (id = null) => {
@@ -47,31 +60,47 @@ const EventsAdminScreen = (props) => {
     );
   };
 
+  if (isLoading) {
+    return (
+      <View style={defaultStyles.centered}>
+        <ActivityIndicator animating={true} size="large" />
+      </View>
+    );
+  }
+
+  if (!isLoading && events.length === 0) {
+    return (
+      <View style={defaultStyles.centered}>
+        <HelperText>No events found!. Add some!!</HelperText>
+        <FAB
+          style={defaultStyles.fab}
+          medium
+          icon="plus"
+          onPress={() => onPress()}
+        />
+      </View>
+    );
+  }
+
   return (
     <View style={defaultStyles.occupy}>
-      {events.length === 0 ? (
-        <View>
-          <HelperText>No events found. Add some</HelperText>
-        </View>
-      ) : (
-        <View>
-          <FlatList data={events} renderItem={renderEvent} />
+      <View>
+        <FlatList data={events} renderItem={renderEvent} />
 
-          <Snackbar
-            visible={visibility}
-            onDismiss={() => setVisibility(false)}
-            action={{
-              label: 'Okay',
-              duration: 3000,
-              onPress: () => {
-                // Do something
-              },
-            }}
-          >
-            Event {snackbarMsg}.
-          </Snackbar>
-        </View>
-      )}
+        <Snackbar
+          visible={visibility}
+          onDismiss={() => setVisibility(false)}
+          action={{
+            label: 'Okay',
+            duration: 3000,
+            onPress: () => {
+              // Do something
+            },
+          }}
+        >
+          Event {snackbarMsg}.
+        </Snackbar>
+      </View>
       <FAB
         style={defaultStyles.fab}
         medium

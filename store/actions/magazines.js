@@ -32,7 +32,7 @@ const addMagazine = (values, fileName, uri) => {
       const blob = await uriToBlob(uri);
       const snapshot = await uploadToFirebase(blob, path, fileName);
       downloadUrl = await snapshot.ref.getDownloadURL();
-      const res = await database.ref('magazines').push({
+      const res = await database.ref('2magazines').push({
         date,
         fileName,
         downloadUrl,

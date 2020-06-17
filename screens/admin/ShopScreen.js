@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Card, Button, FAB, Snackbar, HelperText } from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Card,
+  Button,
+  FAB,
+  Snackbar,
+  HelperText,
+} from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
 import ProductItem from '../../components/ProductItem';
@@ -12,9 +19,15 @@ const ShopAdminScreen = (props) => {
   let products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    const loadProducts = async () => {
+      setIsLoading(true);
+      await dispatch(fetchProducts());
+      setIsLoading(false);
+    };
+    loadProducts();
   }, [dispatch]);
 
   const onPress = (id = null) => {
@@ -45,31 +58,47 @@ const ShopAdminScreen = (props) => {
     );
   };
 
+  if (isLoading) {
+    return (
+      <View style={defaultStyles.centered}>
+        <ActivityIndicator animating={true} size="large" />
+      </View>
+    );
+  }
+
+  if (!isLoading && products.length === 0) {
+    return (
+      <View style={defaultStyles.centered}>
+        <HelperText>No products found! Add some!!</HelperText>
+        <FAB
+          style={defaultStyles.fab}
+          medium
+          icon="plus"
+          onPress={() => onPress()}
+        />
+      </View>
+    );
+  }
+
   return (
     <View style={defaultStyles.occupy}>
-      {products.length === 0 ? (
-        <View>
-          <HelperText>No products found!. Add Some</HelperText>
-        </View>
-      ) : (
-        <View>
-          <FlatList data={products} renderItem={renderProduct} />
+      <View>
+        <FlatList data={products} renderItem={renderProduct} />
 
-          <Snackbar
-            visible={visibility}
-            onDismiss={() => setVisibility(false)}
-            action={{
-              label: 'Okay',
-              duration: 3000,
-              onPress: () => {
-                // Do something
-              },
-            }}
-          >
-            Product deleted!
-          </Snackbar>
-        </View>
-      )}
+        <Snackbar
+          visible={visibility}
+          onDismiss={() => setVisibility(false)}
+          action={{
+            label: 'Okay',
+            duration: 3000,
+            onPress: () => {
+              // Do something
+            },
+          }}
+        >
+          Product deleted!
+        </Snackbar>
+      </View>
       <FAB
         style={defaultStyles.fab}
         medium

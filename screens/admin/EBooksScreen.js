@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Card, FAB, Snackbar, HelperText } from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Button,
+  Card,
+  FAB,
+  Snackbar,
+  HelperText,
+} from 'react-native-paper';
 
 import defaultStyles from '../../theme/defaultStyles';
 import EBookItem from '../../components/EBookItem';
@@ -13,9 +20,15 @@ const EBooksAdminScreen = (props) => {
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchEBooks());
+    const loadEBooks = async () => {
+      setIsLoading(true);
+      await dispatch(fetchEBooks());
+      setIsLoading(false);
+    };
+    loadEBooks();
   }, [dispatch]);
 
   const onPress = (id = null) => {
@@ -52,30 +65,47 @@ const EBooksAdminScreen = (props) => {
     );
   };
 
+  if (isLoading) {
+    return (
+      <View style={defaultStyles.centered}>
+        <ActivityIndicator animating={true} size="large" />
+      </View>
+    );
+  }
+
+  if (!isLoading && ebooks.length === 0) {
+    return (
+      <View style={defaultStyles.centered}>
+        <HelperText>No ebooks found!. Add some!!</HelperText>
+        <FAB
+          style={defaultStyles.fab}
+          medium
+          icon="plus"
+          onPress={() => onPress()}
+        />
+      </View>
+    );
+  }
+
   return (
     <View style={defaultStyles.occupy}>
-      {ebooks.length === 0 ? (
-        <View>
-          <HelperText>No ebooks found. Add some!</HelperText>
-        </View>
-      ) : (
-        <View>
-          <FlatList data={ebooks} renderItem={renderEBook} />
-          <Snackbar
-            visible={visibility}
-            onDismiss={() => setVisibility(false)}
-            action={{
-              label: 'Okay',
-              duration: 3000,
-              onPress: () => {
-                // Do something
-              },
-            }}
-          >
-            EBook {snackbarMsg}.
-          </Snackbar>
-        </View>
-      )}
+      <View>
+        <FlatList data={ebooks} renderItem={renderEBook} />
+        <Snackbar
+          visible={visibility}
+          onDismiss={() => setVisibility(false)}
+          action={{
+            label: 'Okay',
+            duration: 3000,
+            onPress: () => {
+              // Do something
+            },
+          }}
+        >
+          EBook {snackbarMsg}.
+        </Snackbar>
+      </View>
+
       <FAB
         style={defaultStyles.fab}
         medium

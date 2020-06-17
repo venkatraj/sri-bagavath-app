@@ -5,31 +5,36 @@ import Product from '../../models/Product';
 
 const fetchProducts = () => {
   return async (dispatch) => {
-    const products = [];
-    database.ref('products').once('value', (snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-        const {
-          title,
-          description,
-          price,
-          category,
-          language,
-          fileName,
-          downloadUrl,
-        } = childSnapshot.val();
-        const product = new Product(
-          childSnapshot.key,
-          title,
-          description,
-          price,
-          category,
-          language,
-          downloadUrl
-        );
-        products.push(product);
+    try {
+      const products = [];
+      database.ref('products').once('value', (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          const {
+            title,
+            description,
+            price,
+            category,
+            language,
+            fileName,
+            downloadUrl,
+          } = childSnapshot.val();
+          const product = new Product(
+            childSnapshot.key,
+            title,
+            description,
+            price,
+            category,
+            language,
+            downloadUrl
+          );
+          products.push(product);
+        });
+        dispatch({ type: 'SET_PRODUCTS', products });
       });
-      dispatch({ type: 'SET_PRODUCTS', products });
-    });
+    } catch (e) {
+      // may be send error crash report
+      throw e;
+    }
   };
 };
 
