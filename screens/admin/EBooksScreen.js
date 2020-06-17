@@ -36,6 +36,11 @@ const EBooksAdminScreen = (props) => {
   }, [dispatch, setError, setIsLoading]);
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', loadEBooks);
+    return unsubscribe;
+  }, [loadEBooks]);
+
+  useEffect(() => {
     loadEBooks();
   }, [loadEBooks]);
 

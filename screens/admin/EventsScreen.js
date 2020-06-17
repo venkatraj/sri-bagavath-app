@@ -36,6 +36,11 @@ const EventsAdminScreen = (props) => {
   }, [dispatch, setError, setIsLoading]);
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', loadEvents);
+    return unsubscribe;
+  }, [loadEvents]);
+
+  useEffect(() => {
     loadEvents();
   }, [loadEvents]);
 

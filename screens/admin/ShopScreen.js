@@ -35,6 +35,11 @@ const ShopAdminScreen = (props) => {
   }, [dispatch, setError, setIsLoading]);
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', loadProducts);
+    return unsubscribe;
+  }, [loadProducts]);
+
+  useEffect(() => {
     loadProducts();
   }, [loadProducts]);
 
