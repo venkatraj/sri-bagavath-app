@@ -69,7 +69,7 @@ const addProduct = (values, fileName, uri) => {
         language,
         imageUrl
       );
-      console.log('Adding Product', product);
+
       dispatch({
         type: 'ADD_PRODUCT',
         product,

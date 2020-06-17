@@ -18,8 +18,6 @@ const ProductItem = (props) => {
     language,
   } = product;
 
-  console.log(imageUrl);
-
   return (
     <Card style={defaultStyles.item}>
       <Card.Content>

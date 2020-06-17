@@ -34,6 +34,7 @@ const MagazineItem = (props) => {
           onDownload('not downloaded!');
         }
       } else {
+        onDownload('not downloaded!');
         throw Error('File download not successful');
       }
     } catch (e) {
