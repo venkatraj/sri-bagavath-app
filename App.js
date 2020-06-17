@@ -9,6 +9,8 @@ import fetchFonts from './utils/fetchFonts';
 // import populateData from './data/populate';
 // import { database } from './firebase/firebase';
 
+console.ignoredYellowBox = ['Setting a timer'];
+
 const store = configureStore();
 // populateData(store);
 // const subscribe = store.subscribe(() => {
