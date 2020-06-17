@@ -105,8 +105,8 @@ const EventsAdminScreen = (props) => {
   }
 
   return (
-    <ScrollView style={defaultStyles.occupy}>
-      <View>
+    <View style={defaultStyles.occupy}>
+      <View style={defaultStyles.bottomSpace}>
         <Title style={defaultStyles.title}>Events</Title>
         <FlatList data={events} renderItem={renderEvent} />
 
@@ -130,7 +130,7 @@ const EventsAdminScreen = (props) => {
         icon="plus"
         onPress={() => onPress()}
       />
-    </ScrollView>
+    </View>
   );
 };
 

@@ -29,6 +29,9 @@ const defaultStyles = StyleSheet.create({
     flex: 1,
     marginVertical: 20,
   },
+  bottomSpace: {
+    paddingBottom: 40,
+  },
 });
 
 export default defaultStyles;

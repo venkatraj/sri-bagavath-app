@@ -103,8 +103,8 @@ const ShopAdminScreen = (props) => {
   }
 
   return (
-    <ScrollView style={defaultStyles.occupy}>
-      <View>
+    <View style={defaultStyles.occupy}>
+      <View style={defaultStyles.bottomSpace}>
         <Title style={defaultStyles.title}>Products</Title>
         <FlatList data={products} renderItem={renderProduct} />
 
@@ -128,7 +128,7 @@ const ShopAdminScreen = (props) => {
         icon="plus"
         onPress={() => onPress()}
       />
-    </ScrollView>
+    </View>
   );
 };
 

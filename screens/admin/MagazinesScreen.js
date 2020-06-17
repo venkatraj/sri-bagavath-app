@@ -110,7 +110,7 @@ const MagazinesAdminScreen = (props) => {
   }
   return (
     <View style={defaultStyles.occupy}>
-      <View>
+      <View style={defaultStyles.bottomSpace}>
         <Title style={defaultStyles.title}>Magazines</Title>
         <FlatList data={magazines} renderItem={renderMagazine} />
         <Snackbar
