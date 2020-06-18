@@ -22,14 +22,15 @@ const EBooksScreen = (props) => {
   const [visibility, setVisibility] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState(null);
 
   const loadEBooks = useCallback(async () => {
     setError(null);
-    setIsLoading(true);
+    setIsRefreshing(true);
     try {
       await dispatch(fetchEBooks());
-      setIsLoading(false);
+      setIsRefreshing(false);
     } catch (e) {
       setError(e.message);
     }
@@ -41,7 +42,8 @@ const EBooksScreen = (props) => {
   }, [loadEBooks]);
 
   useEffect(() => {
-    loadEBooks();
+    setIsLoading(true);
+    loadEBooks().then(() => setIsLoading(false));
   }, [loadEBooks]);
 
   const renderEBook = (itemData) => {
@@ -80,7 +82,12 @@ const EBooksScreen = (props) => {
 
   return (
     <View style={defaultStyles.occupy}>
-      <FlatList data={ebooks} renderItem={renderEBook} />
+      <FlatList
+        onRefresh={loadEBooks}
+        refreshing={isRefreshing}
+        data={ebooks}
+        renderItem={renderEBook}
+      />
       <Snackbar
         visible={visibility}
         onDismiss={() => setVisibility(false)}

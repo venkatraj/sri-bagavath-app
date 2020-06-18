@@ -22,14 +22,15 @@ const EventsScreen = (props) => {
   const [visibility, setVisibility] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState(null);
 
   const loadEvents = useCallback(async () => {
     setError(null);
-    setIsLoading(true);
+    setIsRefreshing(true);
     try {
       await dispatch(fetchEvents());
-      setIsLoading(false);
+      setIsRefreshing(false);
     } catch (e) {
       setError(e.message);
     }
@@ -41,7 +42,8 @@ const EventsScreen = (props) => {
   }, [loadEvents]);
 
   useEffect(() => {
-    loadEvents();
+    setIsLoading(true);
+    loadEvents().then(() => setIsLoading(false));
   }, [loadEvents]);
 
   const onPress = (id) => {
@@ -89,7 +91,12 @@ const EventsScreen = (props) => {
   return (
     <View style={defaultStyles.bottomSpace}>
       <Title style={defaultStyles.title}>Events</Title>
-      <FlatList data={events} renderItem={renderEvent} />
+      <FlatList
+        onRefresh={loadEvents}
+        refreshing={isRefreshing}
+        data={events}
+        renderItem={renderEvent}
+      />
     </View>
   );
 };

@@ -25,14 +25,15 @@ const MagazinesScreen = (props) => {
   const [visibility, setVisibility] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState(null);
 
   const loadMagazines = useCallback(async () => {
     setError(null);
-    setIsLoading(true);
+    setIsRefreshing(true);
     try {
       await dispatch(fetchMagazines());
-      setIsLoading(false);
+      setIsRefreshing(false);
     } catch (e) {
       setError(e.message);
     }
@@ -44,7 +45,8 @@ const MagazinesScreen = (props) => {
   }, [loadMagazines]);
 
   useEffect(() => {
-    loadMagazines();
+    setIsLoading(true);
+    loadMagazines().then(() => setIsLoading(false));
   }, [loadMagazines]);
 
   const onSelect = (selectedYear) => {
@@ -105,6 +107,8 @@ const MagazinesScreen = (props) => {
   return (
     <View style={defaultStyles.bottomSpace}>
       <FlatList
+        onRefresh={loadMagazines}
+        refreshing={isRefreshing}
         data={magazines}
         renderItem={renderMagazine}
         numColumns={2}
@@ -112,19 +116,19 @@ const MagazinesScreen = (props) => {
           <MagazineFilters selectedYear={selectedYear} onSelect={onSelect} />
         )}
       />
-        <Snackbar
-          visible={visibility}
-          onDismiss={() => setVisibility(false)}
-          action={{
-            label: 'Okay',
-            duration: 3000,
-            onPress: () => {
-              // Do something
-            },
-          }}
-        >
-          Magazine {snackbarMsg}.
-        </Snackbar>
+      <Snackbar
+        visible={visibility}
+        onDismiss={() => setVisibility(false)}
+        action={{
+          label: 'Okay',
+          duration: 3000,
+          onPress: () => {
+            // Do something
+          },
+        }}
+      >
+        Magazine {snackbarMsg}.
+      </Snackbar>
     </View>
   );
 };

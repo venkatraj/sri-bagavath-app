@@ -21,14 +21,15 @@ const ShopScreen = (props) => {
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState(null);
 
   const loadProducts = useCallback(async () => {
     setError(null);
-    setIsLoading(true);
+    setIsRefreshing(true);
     try {
       await dispatch(fetchProducts());
-      setIsLoading(false);
+      setIsRefreshing(false);
     } catch (e) {
       setError(e.message);
     }
@@ -40,7 +41,8 @@ const ShopScreen = (props) => {
   }, [loadProducts]);
 
   useEffect(() => {
-    loadProducts();
+    setIsLoading(true);
+    loadProducts().then(() => setIsLoading(false));
   }, [loadProducts]);
 
   const onPress = (id) => {
@@ -89,7 +91,12 @@ const ShopScreen = (props) => {
     <View style={defaultStyles.occupy}>
       <View style={defaultStyles.bottomSpace}>
         <Title style={defaultStyles.title}>Products</Title>
-        <FlatList data={products} renderItem={renderProduct} />
+        <FlatList
+          onRefresh={loadProducts}
+          refreshing={isRefreshing}
+          data={products}
+          renderItem={renderProduct}
+        />
 
         <Snackbar
           visible={visibility}
