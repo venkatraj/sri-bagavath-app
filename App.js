@@ -7,7 +7,7 @@ import AppNavigator from './navigation/AppNavigator';
 import configureStore from './store/configureStore';
 import fetchFonts from './utils/fetchFonts';
 // import populateData from './data/populate';
-// import { database } from './firebase/firebase';
+import { firebase, database, googleAuthProvider } from './firebase/firebase';
 
 console.ignoredYellowBox = ['Setting a timer'];
 
@@ -17,6 +17,14 @@ const store = configureStore();
 //   console.log(store.getState().magazines);
 //   console.log('App');
 // });
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    console.log('logged in');
+  } else {
+    console.log('logged out');
+  }
+});
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
