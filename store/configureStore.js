@@ -5,6 +5,7 @@ import eventsReducer from './reducers/events';
 import magazinesReducer from './reducers/magazines';
 import ebooksReducer from './reducers/ebooks';
 import productsReducer from './reducers/products';
+import authReducer from './reducers/auth';
 
 const configureStore = () => {
   return createStore(
@@ -13,6 +14,7 @@ const configureStore = () => {
       magazines: magazinesReducer,
       ebooks: ebooksReducer,
       products: productsReducer,
+      user: authReducer,
     }),
     applyMiddleware(ReduxThunk)
   );

@@ -13,17 +13,9 @@ console.ignoredYellowBox = ['Setting a timer'];
 
 const store = configureStore();
 // populateData(store);
-// const subscribe = store.subscribe(() => {
-//   console.log(store.getState().magazines);
-//   console.log('App');
-// });
-
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    console.log('logged in');
-  } else {
-    console.log('logged out');
-  }
+const subscribe = store.subscribe(() => {
+  // console.log(store.getState().user);
+  // console.log('App');
 });
 
 export default function App() {
