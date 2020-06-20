@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import AdminNavigator from '../admin/AdminNavigator';
+import AdminNavigator from './AdminNavigator';
 import AuthScreen from '../../screens/admin/AuthScreen';
 import HeaderDrawer from '../../components/HeaderDrawer';
 import Header from '../../components/Header';

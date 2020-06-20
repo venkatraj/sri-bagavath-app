@@ -36,7 +36,7 @@ const logout = () => {
   return async (dispatch) => {
     try {
       const res = await firebase.auth().signOut();
-      console.log(res);
+      dispatch({ type: 'LOGOUT' });
     } catch (error) {
       throw new Error(error.message);
     }

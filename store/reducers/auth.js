@@ -1,6 +1,7 @@
 const initialState = {
   accessToken: null,
   userID: null,
+  isLoggedIn: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -9,6 +10,13 @@ const authReducer = (state = initialState, action) => {
       return {
         accessToken: action.accessToken,
         userID: action.userID,
+        isLoggedIn: true,
+      };
+    case 'LOGOUT':
+      return {
+        accessToken: null,
+        userID: null,
+        isLoggedIn: false,
       };
     default:
       return state;

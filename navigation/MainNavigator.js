@@ -5,7 +5,7 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import HomeNavigator from './public/HomeNavigator';
 import AdminNavigator from './admin/AdminNavigator';
@@ -16,7 +16,8 @@ import { logout } from '../store/actions/auth';
 const Drawer = createDrawerNavigator();
 
 const MainNavigator = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const user = useSelector((state) => state.user);
+  const { isLoggedIn } = user;
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -26,16 +27,6 @@ const MainNavigator = (props) => {
       console.error(e);
     }
   };
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    });
-  }, [firebase]);
 
   return (
     <Drawer.Navigator
