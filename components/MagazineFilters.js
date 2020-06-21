@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Button, Paragraph, Menu } from 'react-native-paper';
 
 import Range from '../constants/Range';
@@ -27,14 +27,7 @@ const MagazineFilters = (props) => {
   }
 
   return (
-    <View
-      style={{
-        paddingTop: 20,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <View style={styles.menuContainer}>
       <Menu
         visible={visibility}
         onDismiss={closeMenu}
@@ -54,5 +47,14 @@ const MagazineFilters = (props) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  menuContainer: {
+    paddingTop: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default MagazineFilters;

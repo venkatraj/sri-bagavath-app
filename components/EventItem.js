@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 import {
   Button,
   Card,
@@ -12,8 +13,19 @@ import {
 import defaultStyles from '../theme/defaultStyles';
 
 const EventItem = (props) => {
-  const { eventData: event, onPress } = props;
-  const { title, description, host, venue, price, startDate, endDate } = event;
+  const { eventData: event, onPress, onDelete, onEdit } = props;
+  const {
+    id,
+    title,
+    description,
+    host,
+    venue,
+    price,
+    startDate,
+    endDate,
+  } = event;
+  const user = useSelector((state) => state.user);
+  const { isLoggedIn } = user;
 
   return (
     <Card style={defaultStyles.item}>
@@ -26,6 +38,22 @@ const EventItem = (props) => {
         </Paragraph>
         <Paragraph>Rs. {price}/-</Paragraph>
       </Card.Content>
+      {isLoggedIn && (
+        <Card.Actions style={defaultStyles.rowSpaced}>
+          <Button onPress={() => onDelete(id)}>Delete</Button>
+          <Button onPress={() => onEdit(id)}>Edit</Button>
+        </Card.Actions>
+      )}
+      <Card.Actions style={defaultStyles.rowSpaced}>
+        <Button
+          onPress={() => {
+            onPress(id);
+          }}
+        >
+          View Details
+        </Button>
+        <Button>Add To Cart</Button>
+      </Card.Actions>
     </Card>
   );
 };

@@ -11,7 +11,6 @@ const Stack = createStackNavigator();
 
 const AuthNavigator = (props) => {
   const { navigation } = props;
-  let isLoggedIn = false;
   return (
     <Stack.Navigator
       screenOptions={() => {
@@ -21,11 +20,7 @@ const AuthNavigator = (props) => {
         };
       }}
     >
-      {isLoggedIn ? (
-        <Stack.Screen name="Admin" component={AdminNavigator} />
-      ) : (
-        <Stack.Screen name="Auth" component={AuthScreen} />
-      )}
+      <Stack.Screen name="Auth" component={AuthScreen} />
     </Stack.Navigator>
   );
 };

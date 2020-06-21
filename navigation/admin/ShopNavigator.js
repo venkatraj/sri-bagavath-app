@@ -3,8 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import HeaderDrawer from '../../components/HeaderDrawer';
 import HeaderBack from '../../components/HeaderBack';
-import ShopAdminScreen from '../../screens/admin/ShopScreen';
-import ProductScreen from '../../screens/admin/ProductScreen';
+import ShopScreen from '../../screens/public/ShopScreen';
+import ProductFormScreen from '../../screens/admin/ProductFormScreen';
 
 const Stack = createStackNavigator();
 
@@ -13,10 +13,10 @@ const ShopNavigator = (props) => {
 
   return (
     <Stack.Navigator headerMode="none">
-      <Stack.Screen name="ShopAdminScreen" component={ShopAdminScreen} />
+      <Stack.Screen name="Shop" component={ShopScreen} />
       <Stack.Screen
-        name="Product"
-        component={ProductScreen}
+        name="ProductForm"
+        component={ProductFormScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,
           title: 'Product Form',

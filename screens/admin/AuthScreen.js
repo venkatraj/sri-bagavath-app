@@ -24,7 +24,7 @@ const AuthScreen = (props) => {
     setError(null);
     try {
       await dispatch(login(values));
-      navigation.navigate('Admin');
+      navigation.navigate('Home');
     } catch (e) {
       setIsSubmitting(false);
       setError(e.message);

@@ -2,7 +2,9 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import HeaderDrawer from '../../components/HeaderDrawer';
+import HeaderBack from '../../components/HeaderBack';
 import MagazinesScreen from '../../screens/public/MagazinesScreen';
+import MagazineFormScreen from '../../screens/admin/MagazineFormScreen';
 
 const Stack = createStackNavigator();
 
@@ -10,15 +12,16 @@ const MagazinesNavigator = (props) => {
   const { navigation } = props;
 
   return (
-    <Stack.Navigator
-      screenOptions={() => {
-        const handleOnPress = () => navigation.toggleDrawer();
-        return {
-          header: () => <HeaderDrawer onPress={handleOnPress} />,
-        };
-      }}
-    >
-      <Stack.Screen name="Magazines" component={MagazinesScreen} />
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="MagazinesScreen" component={MagazinesScreen} />
+      <Stack.Screen
+        name="MagazineForm"
+        component={MagazineFormScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+          title: 'Magazine Form',
+        }}
+      />
     </Stack.Navigator>
   );
 };

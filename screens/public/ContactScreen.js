@@ -1,15 +1,30 @@
 import React from 'react';
-import { Button, View, StyleSheet, Linking } from 'react-native';
+import {
+  Dimensions,
+  Button,
+  View,
+  ScrollView,
+  StyleSheet,
+  Linking,
+} from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import { Card, Title, Paragraph } from 'react-native-paper';
 
+import getRegion from '../../utils/getRegion';
+
 const ContactScreen = (props) => {
+  const { height, width } = Dimensions.get('window');
+  const latitude = 11.629732;
+  const longitude = 78.253898;
+  const latitudeDelta = 0.1;
+  const longitudeDelta = latitudeDelta * (width / height);
   return (
-    <View>
+    <ScrollView style={styles.container}>
       <Card style={styles.cardItem}>
         <Card.Content>
           <Title>Our Office Location</Title>
           <Paragraph>
-            31, Ramalingasamy Street, Ammapat, Salem - 636003, Tamil Nadu, India
+            31, Ramalingasamy Street, Ammapet, Salem - 636003, Tamil Nadu, India
           </Paragraph>
         </Card.Content>
       </Card>
@@ -37,22 +52,44 @@ const ContactScreen = (props) => {
       <Card style={styles.cardItem}>
         <Card.Content>
           <Title>Map</Title>
-          <Paragraph>TODO</Paragraph>
+          <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude,
+              longitude,
+              latitudeDelta,
+              longitudeDelta,
+            }}
+          >
+            <Marker
+              coordinate={{ latitude, longitude }}
+              title="Sri Bagavath Bhavan"
+              description="Where you get enlightenment"
+            />
+          </MapView>
         </Card.Content>
       </Card>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 20,
+  },
   cardItem: {
     margin: 20,
-    marginBottom: 0,
+    elevation: 5,
   },
   fixToText: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 15,
+  },
+  map: {
+    width: '100%',
+    height: 250,
+    marginBottom: 15,
   },
 });
 

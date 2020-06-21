@@ -5,6 +5,7 @@ import HeaderDrawer from '../../components/HeaderDrawer';
 import HeaderBack from '../../components/HeaderBack';
 import ShopScreen from '../../screens/public/ShopScreen';
 import ProductDetailsScreen from '../../screens/public/ProductDetailsScreen';
+import ProductFormScreen from '../../screens/admin/ProductFormScreen';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,14 @@ const ShopNavigator = (props) => {
         options={{
           header: (props) => <HeaderBack {...props} />,
           title: 'Product Details',
+        }}
+      />
+      <Stack.Screen
+        name="ProductForm"
+        component={ProductFormScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+          title: 'Product Form',
         }}
       />
     </Stack.Navigator>

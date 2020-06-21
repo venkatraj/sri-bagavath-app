@@ -7,8 +7,8 @@ import HomeScreen from '../../screens/public/HomeScreen';
 import AboutScreen from '../../screens/public/AboutScreen';
 import ShopNavigator from './ShopNavigator';
 import EventsNavigator from './EventsNavigator';
-import MagazinesScreen from '../../screens/public/MagazinesScreen';
-import EBooksScreen from '../../screens/public/EBooksScreen';
+import MagazinesNavigator from './MagazinesNavigator';
+import EBooksNavigator from './EBooksNavigator';
 import ContactScreen from '../../screens/public/ContactScreen';
 
 const HomeStack = createStackNavigator();
@@ -30,7 +30,7 @@ const HomeNavigator = (props) => {
         component={AboutScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,
-          title: 'About',
+          title: 'About Sri Bagavath Ayya',
         }}
       />
       <HomeStack.Screen
@@ -38,6 +38,7 @@ const HomeNavigator = (props) => {
         component={ShopNavigator}
         options={{
           header: (props) => <HeaderBack {...props} />,
+          title: 'Products',
         }}
       />
       <HomeStack.Screen
@@ -45,20 +46,23 @@ const HomeNavigator = (props) => {
         component={EventsNavigator}
         options={{
           header: (props) => <HeaderBack {...props} />,
+          title: 'Events',
         }}
       />
       <HomeStack.Screen
         name="Magazines"
-        component={MagazinesScreen}
+        component={MagazinesNavigator}
         options={{
           header: (props) => <HeaderBack {...props} />,
+          title: 'Magazines',
         }}
       />
       <HomeStack.Screen
         name="EBooks"
-        component={EBooksScreen}
+        component={EBooksNavigator}
         options={{
           header: (props) => <HeaderBack {...props} />,
+          title: 'EBooks',
         }}
       />
       <HomeStack.Screen
@@ -66,6 +70,7 @@ const HomeNavigator = (props) => {
         component={ContactScreen}
         options={{
           header: (props) => <HeaderBack {...props} />,
+          title: 'Contact Us',
         }}
       />
     </HomeStack.Navigator>

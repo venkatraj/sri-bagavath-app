@@ -44,11 +44,7 @@ const MainNavigator = (props) => {
       }}
     >
       <Drawer.Screen name="Home" component={HomeNavigator} />
-      {isLoggedIn ? (
-        <Drawer.Screen name="Admin" component={AdminNavigator} />
-      ) : (
-        <Drawer.Screen name="Login" component={AuthNavigator} />
-      )}
+      {!isLoggedIn && <Drawer.Screen name="Login" component={AuthNavigator} />}
     </Drawer.Navigator>
   );
 };

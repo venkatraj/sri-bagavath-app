@@ -16,6 +16,7 @@ import { addMagazine, editMagazine } from '../../store/actions/magazines';
 
 const MagazineForm = (props) => {
   const { id, onSubmitHandler } = props;
+  console.log(id);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const magazines = useSelector((state) => state.magazines);

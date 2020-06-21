@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { Alert, View, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   ActivityIndicator,
@@ -13,11 +13,14 @@ import {
 
 import defaultStyles from '../../theme/defaultStyles';
 import EBookItem from '../../components/EBookItem';
-import { fetchEBooks } from '../../store/actions/ebooks';
+import { fetchEBooks, deleteEBook } from '../../store/actions/ebooks';
 
 const EBooksScreen = (props) => {
   const { navigation } = props;
   const ebooks = useSelector((state) => state.ebooks);
+  const user = useSelector((state) => state.user);
+  const { isLoggedIn } = user;
+
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
@@ -46,13 +49,48 @@ const EBooksScreen = (props) => {
     loadEBooks().then(() => setIsLoading(false));
   }, [loadEBooks]);
 
+  const onCreateAndEdit = (id = '') => {
+    console.log(id);
+    navigation.navigate('EBooks', {
+      screen: 'EBookForm',
+      params: { id },
+    });
+  };
+
+  const onDelete = (id) => {
+    Alert.alert(
+      'Are you sure?',
+      "EBook will be deleted. This can't be undone!",
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            dispatch(deleteEBook(id));
+            setVisibility(true);
+            setSnackbarMsg('deleted');
+          },
+        },
+        {
+          text: 'Cancel',
+        },
+      ]
+    );
+  };
+
   const renderEBook = (itemData) => {
     const onDownload = (msg) => {
       setVisibility(true);
       setSnackbarMsg(msg);
     };
 
-    return <EBookItem ebookData={itemData.item} onDownload={onDownload} />;
+    return (
+      <EBookItem
+        ebookData={itemData.item}
+        onDownload={onDownload}
+        onEdit={onCreateAndEdit}
+        onDelete={onDelete}
+      />
+    );
   };
 
   if (error) {
@@ -76,31 +114,49 @@ const EBooksScreen = (props) => {
     return (
       <View style={defaultStyles.centered}>
         <HelperText>No ebooks found!</HelperText>
+        {isLoggedIn && (
+          <FAB
+            style={defaultStyles.fab}
+            medium
+            icon="plus"
+            onPress={() => onCreateAndEdit()}
+          />
+        )}
       </View>
     );
   }
 
   return (
     <View style={defaultStyles.occupy}>
-      <FlatList
-        onRefresh={loadEBooks}
-        refreshing={isRefreshing}
-        data={ebooks}
-        renderItem={renderEBook}
-      />
-      <Snackbar
-        visible={visibility}
-        onDismiss={() => setVisibility(false)}
-        action={{
-          label: 'Okay',
-          duration: 3000,
-          onPress: () => {
-            // Do something
-          },
-        }}
-      >
-        EBook {snackbarMsg}.
-      </Snackbar>
+      <View style={defaultStyles.bottomSpace}>
+        <FlatList
+          onRefresh={loadEBooks}
+          refreshing={isRefreshing}
+          data={ebooks}
+          renderItem={renderEBook}
+        />
+        <Snackbar
+          visible={visibility}
+          onDismiss={() => setVisibility(false)}
+          action={{
+            label: 'Okay',
+            duration: 3000,
+            onPress: () => {
+              // Do something
+            },
+          }}
+        >
+          EBook {snackbarMsg}.
+        </Snackbar>
+      </View>
+      {isLoggedIn && (
+        <FAB
+          style={defaultStyles.fab}
+          medium
+          icon="plus"
+          onPress={() => onCreateAndEdit()}
+        />
+      )}
     </View>
   );
 };

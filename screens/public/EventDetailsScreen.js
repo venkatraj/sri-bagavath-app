@@ -11,7 +11,7 @@ const EventDetailsScreen = (props) => {
   const id = props.route.params.id;
   const events = useSelector((state) => state.events);
   const event = getEvent(id, events);
-  const { name, host, venue, price, date } = event;
+  const { name, host, venue, price, startDate, endDate } = event;
   return (
     <Card style={defaultStyles.item}>
       <Card.Content>
@@ -20,7 +20,9 @@ const EventDetailsScreen = (props) => {
         <Paragraph>{venue}</Paragraph>
         <View style={defaultStyles.rowSpaced}>
           <Paragraph>Price: Rs.{price}</Paragraph>
-          <Paragraph>Date: {date.toDateString()}</Paragraph>
+          <Paragraph>
+            Date: {startDate} - {endDate}
+          </Paragraph>
         </View>
       </Card.Content>
       <Card.Actions style={defaultStyles.rowSpaced}>

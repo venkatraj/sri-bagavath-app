@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import EventsScreen from '../../screens/public/EventsScreen';
 import EventDetailsScreen from '../../screens/public/EventDetailsScreen';
+import EventFormScreen from '../../screens/admin/EventFormScreen';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,14 @@ const EventsNavigator = (props) => {
         options={{
           header: (props) => <HeaderBack {...props} />,
           title: 'Event Details',
+        }}
+      />
+      <Stack.Screen
+        name="EventForm"
+        component={EventFormScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+          title: 'Event Form',
         }}
       />
     </Stack.Navigator>

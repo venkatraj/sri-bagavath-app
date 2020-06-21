@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FlatList, StyleSheet, ScrollView, View } from 'react-native';
+import { FlatList, StyleSheet, ScrollView, View, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   ActivityIndicator,
@@ -18,6 +18,8 @@ import { fetchProducts, deleteProduct } from '../../store/actions/products';
 const ShopScreen = (props) => {
   const { navigation } = props;
   let products = useSelector((state) => state.products);
+  const user = useSelector((state) => state.user);
+  const { isLoggedIn } = user;
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,8 +54,41 @@ const ShopScreen = (props) => {
     });
   };
 
+  const onCreateAndEdit = (id = '') => {
+    navigation.navigate('Shop', {
+      screen: 'ProductForm',
+      params: { id },
+    });
+  };
+
+  const onDelete = (id) => {
+    Alert.alert(
+      'Are you sure?',
+      "Product will be deleted. This can't be undone!",
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            dispatch(deleteProduct(id));
+            setVisibility(true);
+          },
+        },
+        {
+          text: 'Cancel',
+        },
+      ]
+    );
+  };
+
   const renderProduct = (itemData) => {
-    return <ProductItem productData={itemData.item} onPress={onPress} />;
+    return (
+      <ProductItem
+        productData={itemData.item}
+        onPress={onPress}
+        onDelete={onDelete}
+        onEdit={onCreateAndEdit}
+      />
+    );
   };
 
   if (error) {
@@ -77,12 +112,14 @@ const ShopScreen = (props) => {
     return (
       <View style={defaultStyles.centered}>
         <HelperText>No products found! Add some!!</HelperText>
-        <FAB
-          style={defaultStyles.fab}
-          medium
-          icon="plus"
-          onPress={() => onPress()}
-        />
+        {isLoggedIn && (
+          <FAB
+            style={defaultStyles.fab}
+            medium
+            icon="plus"
+            onPress={() => onCreateAndEdit()}
+          />
+        )}
       </View>
     );
   }
@@ -90,7 +127,6 @@ const ShopScreen = (props) => {
   return (
     <View style={defaultStyles.occupy}>
       <View style={defaultStyles.bottomSpace}>
-        <Title style={defaultStyles.title}>Products</Title>
         <FlatList
           onRefresh={loadProducts}
           refreshing={isRefreshing}
@@ -112,12 +148,14 @@ const ShopScreen = (props) => {
           Product deleted!
         </Snackbar>
       </View>
-      <FAB
-        style={defaultStyles.fab}
-        medium
-        icon="plus"
-        onPress={() => onPress()}
-      />
+      {isLoggedIn && (
+        <FAB
+          style={defaultStyles.fab}
+          medium
+          icon="plus"
+          onPress={() => onCreateAndEdit()}
+        />
+      )}
     </View>
   );
 };

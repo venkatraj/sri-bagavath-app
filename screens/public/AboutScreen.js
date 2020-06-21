@@ -51,8 +51,10 @@ const AboutScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 15,
+    marginHorizontal: 15,
+    marginVertical: 20,
     padding: 15,
+    elevation: 5,
   },
   spaced: {
     marginBottom: 10,

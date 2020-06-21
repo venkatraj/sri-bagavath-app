@@ -5,6 +5,7 @@ const defaultStyles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 20,
     marginVertical: 10,
+    elevation: 5,
   },
   centered: {
     flex: 1,
@@ -21,9 +22,8 @@ const defaultStyles = StyleSheet.create({
   btnContainer: { marginHorizontal: 20 },
   fab: {
     position: 'absolute',
-    margin: 20,
-    right: 0,
-    bottom: 50,
+    right: 20,
+    bottom: 0,
   },
   occupy: {
     flex: 1,

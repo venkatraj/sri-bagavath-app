@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     borderRadius: 10,
-    elevation: 3,
+    elevation: 5,
     padding: 15,
     backgroundColor: 'orange',
   },

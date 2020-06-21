@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, ScrollView, FlatList, StyleSheet } from 'react-native';
+import { Alert, View, ScrollView, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   ActivityIndicator,
@@ -18,6 +18,9 @@ import { fetchEvents, deleteEvent } from '../../store/actions/events';
 const EventsScreen = (props) => {
   const { navigation } = props;
   const events = useSelector((state) => state.events);
+  const user = useSelector((state) => state.user);
+  const { isLoggedIn } = user;
+
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
@@ -53,8 +56,41 @@ const EventsScreen = (props) => {
     });
   };
 
+  const onCreateAndEdit = (id = '') => {
+    navigation.navigate('Events', {
+      screen: 'EventForm',
+      params: { id },
+    });
+  };
+
+  const onDelete = (id) => {
+    Alert.alert(
+      'Are you sure?',
+      "Event will be deleted. This can't be undone!",
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            dispatch(deleteEvent(id));
+            setVisibility(true);
+          },
+        },
+        {
+          text: 'Cancel',
+        },
+      ]
+    );
+  };
+
   const renderEvent = (itemData) => {
-    return <EventItem eventData={itemData.item} onPress={onPress} />;
+    return (
+      <EventItem
+        eventData={itemData.item}
+        onEdit={onCreateAndEdit}
+        onDelete={onDelete}
+        onPress={onPress}
+      />
+    );
   };
 
   if (error) {
@@ -78,25 +114,36 @@ const EventsScreen = (props) => {
     return (
       <View style={defaultStyles.centered}>
         <HelperText>No events found!. Add some!!</HelperText>
-        <FAB
-          style={defaultStyles.fab}
-          medium
-          icon="plus"
-          onPress={() => onPress()}
-        />
+        {isLoggedIn && (
+          <FAB
+            style={defaultStyles.fab}
+            medium
+            icon="plus"
+            onPress={() => onCreateAndEdit()}
+          />
+        )}
       </View>
     );
   }
 
   return (
-    <View style={defaultStyles.bottomSpace}>
-      <Title style={defaultStyles.title}>Events</Title>
-      <FlatList
-        onRefresh={loadEvents}
-        refreshing={isRefreshing}
-        data={events}
-        renderItem={renderEvent}
-      />
+    <View style={defaultStyles.occupy}>
+      <View style={defaultStyles.bottomSpace}>
+        <FlatList
+          onRefresh={loadEvents}
+          refreshing={isRefreshing}
+          data={events}
+          renderItem={renderEvent}
+        />
+        {isLoggedIn && (
+          <FAB
+            style={defaultStyles.fab}
+            medium
+            icon="plus"
+            onPress={() => onCreateAndEdit()}
+          />
+        )}
+      </View>
     </View>
   );
 };

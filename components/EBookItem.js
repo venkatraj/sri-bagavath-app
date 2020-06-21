@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 import { Card, Button, Title, Paragraph, Snackbar } from 'react-native-paper';
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
@@ -7,8 +8,10 @@ import * as MediaLibrary from 'expo-media-library';
 import defaultStyles from '../theme/defaultStyles';
 
 const EBookItem = (props) => {
-  const onDownload = props.onDownload;
-  const { title, fileName, downloadUrl, description } = props.ebookData;
+  const { ebookData: ebook, onDownload, onEdit, onDelete } = props;
+  const { id, title, fileName, downloadUrl, description } = ebook;
+  const user = useSelector((state) => state.user);
+  const { isLoggedIn } = user;
 
   const downloadEBook = async () => {
     try {
@@ -44,10 +47,16 @@ const EBookItem = (props) => {
       <Card.Content>
         <Title style={defaultStyles.centeredText}>{title}</Title>
         <Paragraph style={defaultStyles.centeredText}>{description}</Paragraph>
-        <Card.Actions style={defaultStyles.centered}>
-          <Button onPress={downloadEBook}>Download</Button>
-        </Card.Actions>
       </Card.Content>
+      <Card.Actions style={defaultStyles.centered}>
+        <Button onPress={downloadEBook}>Download</Button>
+      </Card.Actions>
+      {isLoggedIn && (
+        <Card.Actions style={defaultStyles.rowSpaced}>
+          <Button onPress={() => onDelete(id)}>Delete</Button>
+          <Button onPress={() => onEdit(id)}>Edit</Button>
+        </Card.Actions>
+      )}
     </Card>
   );
 };

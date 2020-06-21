@@ -5,7 +5,7 @@ import { Title } from 'react-native-paper';
 import ProductForm from '../../components/admin/ProductForm';
 import defaultStyles from '../../theme/defaultStyles';
 
-const ProductScreen = (props) => {
+const ProductFormScreen = (props) => {
   const { navigation } = props;
   const id = props.route.params.id;
   const title = id ? 'Edit Product' : 'Add Product';
@@ -23,4 +23,4 @@ const ProductScreen = (props) => {
 
 const styles = StyleSheet.create({});
 
-export default ProductScreen;
+export default ProductFormScreen;

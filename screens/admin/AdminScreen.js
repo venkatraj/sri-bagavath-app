@@ -14,22 +14,22 @@ const AdminScreen = (props) => {
     {
       id: 'p1',
       title: 'Shop',
-      screen: 'ShopAdmin',
+      screen: 'Shop',
     },
     {
       id: 'p2',
       title: 'Events',
-      screen: 'EventsAdmin',
+      screen: 'Events',
     },
     {
       id: 'p3',
       title: 'Magazines',
-      screen: 'MagazinesAdmin',
+      screen: 'Magazines',
     },
     {
       id: 'p4',
       title: 'EBooks',
-      screen: 'EBooksAdmin',
+      screen: 'EBooks',
     },
   ];
 
