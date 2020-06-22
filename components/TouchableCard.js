@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Title } from 'react-native-paper';
+import { Title, useTheme } from 'react-native-paper';
 
 const TouchableCard = (props) => {
   const { title, screen, onPress } = props;
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 5,
     padding: 15,
-    backgroundColor: 'orange',
+    backgroundColor: '#f58636',
   },
 });
 

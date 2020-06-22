@@ -5,6 +5,7 @@ import {
   Button,
   TextInput,
   HelperText,
+  useTheme,
 } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
@@ -17,6 +18,7 @@ import { addProduct, editProduct } from '../../store/actions/products';
 const ProductForm = (props) => {
   const { id, onSubmitHandler } = props;
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { colors } = useTheme();
 
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
@@ -157,7 +159,12 @@ const ProductForm = (props) => {
               )}
             </View>
 
-            <Button disabled={!isValid} onPress={handleSubmit}>
+            <Button
+              mode="contained"
+              color={colors.secondary}
+              disabled={!isValid}
+              onPress={handleSubmit}
+            >
               Submit
             </Button>
           </View>

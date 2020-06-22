@@ -8,6 +8,7 @@ import {
   Subheading,
   Paragraph,
   Snackbar,
+  useTheme,
 } from 'react-native-paper';
 
 import defaultStyles from '../theme/defaultStyles';
@@ -26,6 +27,7 @@ const EventItem = (props) => {
   } = event;
   const user = useSelector((state) => state.user);
   const { isLoggedIn } = user;
+  const { colors } = useTheme();
 
   return (
     <Card style={defaultStyles.item}>
@@ -40,19 +42,35 @@ const EventItem = (props) => {
       </Card.Content>
       {isLoggedIn && (
         <Card.Actions style={defaultStyles.rowSpaced}>
-          <Button onPress={() => onDelete(id)}>Delete</Button>
-          <Button onPress={() => onEdit(id)}>Edit</Button>
+          <Button
+            mode="contained"
+            color={colors.secondary}
+            onPress={() => onDelete(id)}
+          >
+            Delete
+          </Button>
+          <Button
+            mode="contained"
+            color={colors.secondary}
+            onPress={() => onEdit(id)}
+          >
+            Edit
+          </Button>
         </Card.Actions>
       )}
       <Card.Actions style={defaultStyles.rowSpaced}>
         <Button
+          mode="contained"
+          color={colors.accent}
           onPress={() => {
             onPress(id);
           }}
         >
           View Details
         </Button>
-        <Button>Add To Cart</Button>
+        <Button mode="contained" color={colors.accent}>
+          Add To Cart
+        </Button>
       </Card.Actions>
     </Card>
   );

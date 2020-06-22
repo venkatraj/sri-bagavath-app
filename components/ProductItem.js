@@ -1,6 +1,13 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Card, Button, Title, Paragraph, Snackbar } from 'react-native-paper';
+import {
+  Card,
+  Button,
+  Title,
+  Paragraph,
+  Snackbar,
+  useTheme,
+} from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
@@ -12,6 +19,7 @@ const ProductItem = (props) => {
   const { productData: product, onPress, onEdit, onDelete } = props;
   const user = useSelector((state) => state.user);
   const { isLoggedIn } = user;
+  const { colors } = useTheme();
 
   const {
     id,
@@ -33,19 +41,35 @@ const ProductItem = (props) => {
       <Card.Cover source={{ uri: imageUrl }} />
       {isLoggedIn && (
         <Card.Actions style={defaultStyles.rowSpaced}>
-          <Button onPress={() => onDelete(id)}>Delete</Button>
-          <Button onPress={() => onEdit(id)}>Edit</Button>
+          <Button
+            mode="contained"
+            color={colors.secondary}
+            onPress={() => onDelete(id)}
+          >
+            Delete
+          </Button>
+          <Button
+            mode="contained"
+            color={colors.secondary}
+            onPress={() => onEdit(id)}
+          >
+            Edit
+          </Button>
         </Card.Actions>
       )}
       <Card.Actions style={defaultStyles.rowSpaced}>
         <Button
+          mode="contained"
+          color={colors.accent}
           onPress={() => {
             onPress(id);
           }}
         >
           View Details
         </Button>
-        <Button>Add To Cart</Button>
+        <Button mode="contained" color={colors.accent}>
+          Add To Cart
+        </Button>
       </Card.Actions>
     </Card>
   );

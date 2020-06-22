@@ -5,6 +5,7 @@ import {
   Button,
   TextInput,
   HelperText,
+  useTheme,
 } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
@@ -16,6 +17,7 @@ import { addEvent, editEvent } from '../../store/actions/events';
 const EventForm = (props) => {
   const { id, onSubmitHandler } = props;
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { colors } = useTheme();
 
   const events = useSelector((state) => state.events);
   const dispatch = useDispatch();
@@ -153,7 +155,12 @@ const EventForm = (props) => {
             {touched.endDate && errors.endDate ? (
               <HelperText>{errors.endDate}</HelperText>
             ) : null}
-            <Button disabled={!isValid} onPress={handleSubmit}>
+            <Button
+              mode="contained"
+              color={colors.secondary}
+              disabled={!isValid}
+              onPress={handleSubmit}
+            >
               Submit
             </Button>
           </View>

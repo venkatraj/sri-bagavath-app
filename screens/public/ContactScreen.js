@@ -1,18 +1,18 @@
 import React from 'react';
 import {
   Dimensions,
-  Button,
   View,
   ScrollView,
   StyleSheet,
   Linking,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { Card, Title, Paragraph } from 'react-native-paper';
+import { Button, Card, Title, Paragraph, useTheme } from 'react-native-paper';
 
 import getRegion from '../../utils/getRegion';
 
 const ContactScreen = (props) => {
+  const { colors } = useTheme();
   const { height, width } = Dimensions.get('window');
   const latitude = 11.629732;
   const longitude = 78.253898;
@@ -41,11 +41,14 @@ const ContactScreen = (props) => {
           <Paragraph>sribagavathmission@gmail.com</Paragraph>
           <View style={styles.fixToText}>
             <Button
+              mode="contained"
+              color={colors.accent}
               onPress={() =>
                 Linking.openURL('mailto:sribagavathmission@gmail.com')
               }
-              title="Send Message"
-            />
+            >
+              Send Message
+            </Button>
           </View>
         </Card.Content>
       </Card>

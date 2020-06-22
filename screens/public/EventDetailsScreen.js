@@ -1,6 +1,13 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, Card, Title, Paragraph, Subheading } from 'react-native-paper';
+import {
+  Button,
+  Card,
+  Title,
+  Paragraph,
+  Subheading,
+  useTheme,
+} from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
 import defaultStyles from '../../theme/defaultStyles';
@@ -8,6 +15,7 @@ import getEvent from '../../utils/getEvent';
 
 const EventDetailsScreen = (props) => {
   const { navigation } = props;
+  const { colors } = useTheme();
   const id = props.route.params.id;
   const events = useSelector((state) => state.events);
   const event = getEvent(id, events);
@@ -26,8 +34,16 @@ const EventDetailsScreen = (props) => {
         </View>
       </Card.Content>
       <Card.Actions style={defaultStyles.rowSpaced}>
-        <Button onPress={() => navigation.goBack()}>Go Back</Button>
-        <Button>Add To Cart</Button>
+        <Button
+          mode="contained"
+          color={colors.accent}
+          onPress={() => navigation.goBack()}
+        >
+          Go Back
+        </Button>
+        <Button mode="contained" color={colors.accent}>
+          Add To Cart
+        </Button>
       </Card.Actions>
     </Card>
   );

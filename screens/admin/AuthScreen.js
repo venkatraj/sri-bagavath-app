@@ -5,6 +5,7 @@ import {
   Button,
   TextInput,
   HelperText,
+  useTheme,
 } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
@@ -14,6 +15,7 @@ import { login } from '../../store/actions/auth';
 
 const AuthScreen = (props) => {
   const { navigation } = props;
+  const { colors } = useTheme();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState();
   const dispatch = useDispatch();
@@ -84,7 +86,12 @@ const AuthScreen = (props) => {
             {touched.password && errors.password ? (
               <HelperText>{errors.password}</HelperText>
             ) : null}
-            <Button disabled={!isValid} onPress={handleSubmit}>
+            <Button
+              mode="contained"
+              color={colors.accent}
+              disabled={!isValid}
+              onPress={handleSubmit}
+            >
               Login
             </Button>
           </View>

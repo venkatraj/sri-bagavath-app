@@ -5,6 +5,7 @@ import {
   Button,
   TextInput,
   HelperText,
+  useTheme,
 } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
@@ -16,7 +17,7 @@ import { addMagazine, editMagazine } from '../../store/actions/magazines';
 
 const MagazineForm = (props) => {
   const { id, onSubmitHandler } = props;
-  console.log(id);
+  const { colors } = useTheme();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const magazines = useSelector((state) => state.magazines);
@@ -100,11 +101,21 @@ const MagazineForm = (props) => {
               <HelperText>{errors.magazine}</HelperText>
             ) : null}
             {!magazine && (
-              <Button onPress={() => chooseMagazine(setFieldValue)}>
+              <Button
+                mode="contained"
+                color={colors.secondary}
+                style={{ marginBottom: 20 }}
+                onPress={() => chooseMagazine(setFieldValue)}
+              >
                 Choose Magazine
               </Button>
             )}
-            <Button disabled={!isValid} onPress={handleSubmit}>
+            <Button
+              mode="contained"
+              color={colors.secondary}
+              disabled={!isValid}
+              onPress={handleSubmit}
+            >
               Submit
             </Button>
           </View>

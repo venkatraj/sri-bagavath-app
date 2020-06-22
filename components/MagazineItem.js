@@ -1,7 +1,14 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
-import { Card, Button, Title, Paragraph, Snackbar } from 'react-native-paper';
+import {
+  Card,
+  Button,
+  Title,
+  Paragraph,
+  Snackbar,
+  useTheme,
+} from 'react-native-paper';
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
 import moment from 'moment';
@@ -14,6 +21,7 @@ const MagazineItem = (props) => {
   const [day, month, year] = date.split('-');
   const user = useSelector((state) => state.user);
   const { isLoggedIn } = user;
+  const { colors } = useTheme();
 
   const downloadMagazine = async () => {
     try {
@@ -53,12 +61,30 @@ const MagazineItem = (props) => {
         </Title>
       </Card.Content>
       <Card.Actions style={defaultStyles.centered}>
-        <Button onPress={downloadMagazine}>Download</Button>
+        <Button
+          mode="contained"
+          color={colors.accent}
+          onPress={downloadMagazine}
+        >
+          Download
+        </Button>
       </Card.Actions>
       {isLoggedIn && (
         <Card.Actions style={defaultStyles.rowSpaced}>
-          <Button onPress={() => onDelete(id)}>Delete</Button>
-          <Button onPress={() => onEdit(id)}>Edit</Button>
+          <Button
+            mode="contained"
+            color={colors.secondary}
+            onPress={() => onDelete(id)}
+          >
+            Delete
+          </Button>
+          <Button
+            mode="contained"
+            color={colors.secondary}
+            onPress={() => onEdit(id)}
+          >
+            Edit
+          </Button>
         </Card.Actions>
       )}
     </Card>

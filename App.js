@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
 import { Provider as StoreProvider } from 'react-redux';
 import { AppLoading } from 'expo';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import AppNavigator from './navigation/AppNavigator';
 import configureStore from './store/configureStore';
 import fetchFonts from './utils/fetchFonts';
 // import populateData from './data/populate';
 import { firebase, database, googleAuthProvider } from './firebase/firebase';
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#a4372f',
+    secondary: '#f58636',
+    accent: '#10336c',
+  },
+};
 
 console.ignoredYellowBox = ['Setting a timer'];
 
@@ -34,7 +45,7 @@ export default function App() {
 
   return (
     <StoreProvider store={store}>
-      <PaperProvider>
+      <PaperProvider theme={theme}>
         <AppNavigator />
       </PaperProvider>
     </StoreProvider>

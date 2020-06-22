@@ -5,6 +5,7 @@ import {
   Button,
   TextInput,
   HelperText,
+  useTheme,
 } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
@@ -17,6 +18,7 @@ import { addEBook, editEBook } from '../../store/actions/ebooks';
 const EBookForm = (props) => {
   const { id, onSubmitHandler } = props;
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { colors } = useTheme();
 
   const ebooks = useSelector((state) => state.ebooks);
   const dispatch = useDispatch();
@@ -108,6 +110,9 @@ const EBookForm = (props) => {
             ) : null}
             {!ebook && (
               <Button
+                mode="contained"
+                color={colors.secondary}
+                style={{ marginBottom: 20 }}
                 onPress={() => {
                   chooseEBook(setFieldValue);
                 }}
@@ -115,7 +120,12 @@ const EBookForm = (props) => {
                 Choose EBook
               </Button>
             )}
-            <Button disabled={!isValid} onPress={handleSubmit}>
+            <Button
+              mode="contained"
+              color={colors.secondary}
+              disabled={!isValid}
+              onPress={handleSubmit}
+            >
               Submit
             </Button>
           </View>
