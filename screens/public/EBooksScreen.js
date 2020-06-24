@@ -50,7 +50,6 @@ const EBooksScreen = (props) => {
   }, [loadEBooks]);
 
   const onCreateAndEdit = (id = '') => {
-    console.log(id);
     navigation.navigate('EBooks', {
       screen: 'EBookForm',
       params: { id },

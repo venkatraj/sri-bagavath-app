@@ -116,7 +116,6 @@ const editEvent = (id, updates) => {
 
 const deleteEvent = (id) => {
   return async (dispatch) => {
-    console.log('Deleting...', id);
     await database.ref(`events/${id}`).remove();
 
     dispatch({
