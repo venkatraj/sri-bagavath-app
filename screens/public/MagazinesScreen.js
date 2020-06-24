@@ -20,9 +20,6 @@ const MagazinesScreen = (props) => {
   const { navigation } = props;
   const [selectedYear, setSelectedYear] = useState('');
   const magazines = useSelector((state) => state.magazines);
-  // const [magazines, setMagazines] = useState(
-  //   useSelector((state) => state.magazines)
-  // );
   const user = useSelector((state) => state.user);
   const { isLoggedIn } = user;
   const [filteredMagazines, setFilteredMagazines] = useState('');
