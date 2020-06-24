@@ -13,7 +13,7 @@ const ShopNavigator = (props) => {
   const { navigation } = props;
 
   return (
-    <Stack.Navigator headerMode="none">
+    <Stack.Navigator>
       <Stack.Screen name="ShopScreen" component={ShopScreen} />
       <Stack.Screen
         name="ProductDetails"

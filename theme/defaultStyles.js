@@ -25,12 +25,34 @@ const defaultStyles = StyleSheet.create({
     right: 20,
     bottom: 0,
   },
+  shopButtons: {
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+  eventButtons: {
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+  magazineButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 5,
+    marginBottom: 20,
+  },
+  ebookButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 5,
+    marginBottom: 20,
+  },
   occupy: {
     flex: 1,
     marginVertical: 20,
   },
   bottomSpace: {
-    paddingBottom: 40,
+    paddingBottom: 15,
   },
 });
 

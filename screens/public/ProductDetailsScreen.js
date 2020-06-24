@@ -31,7 +31,7 @@ const ProductDetailsScreen = (props) => {
           <Paragraph>Available as: {category}</Paragraph>
         </View>
       </Card.Content>
-      <Card.Actions style={defaultStyles.rowSpaced}>
+      <Card.Actions style={defaultStyles.shopButtons}>
         <Button
           mode="contained"
           color={colors.accent}
@@ -39,9 +39,9 @@ const ProductDetailsScreen = (props) => {
         >
           Shop More
         </Button>
-        <Button mode="contained" color={colors.accent}>
+        {/* <Button mode="contained" color={colors.accent}>
           Add To Cart
-        </Button>
+        </Button> */}
       </Card.Actions>
     </Card>
   );

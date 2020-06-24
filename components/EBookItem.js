@@ -56,7 +56,7 @@ const EBookItem = (props) => {
         <Title style={defaultStyles.centeredText}>{title}</Title>
         <Paragraph style={defaultStyles.centeredText}>{description}</Paragraph>
       </Card.Content>
-      <Card.Actions style={defaultStyles.centered}>
+      <Card.Actions style={defaultStyles.ebookButton}>
         <Button mode="contained" color={colors.accent} onPress={downloadEBook}>
           Download
         </Button>

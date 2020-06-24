@@ -8,9 +8,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 import HomeNavigator from './public/HomeNavigator';
-import AdminNavigator from './admin/AdminNavigator';
 import AuthNavigator from './admin/AuthNavigator';
-import { firebase } from '../firebase/firebase';
 import { logout } from '../store/actions/auth';
 
 const Drawer = createDrawerNavigator();

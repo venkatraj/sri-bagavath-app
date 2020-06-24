@@ -55,7 +55,7 @@ const ShopScreen = (props) => {
   };
 
   const onCreateAndEdit = (id = '') => {
-    navigation.navigate('Shop', {
+    navigation.push('Shop', {
       screen: 'ProductForm',
       params: { id },
     });

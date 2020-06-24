@@ -33,7 +33,7 @@ const EventDetailsScreen = (props) => {
           </Paragraph>
         </View>
       </Card.Content>
-      <Card.Actions style={defaultStyles.rowSpaced}>
+      <Card.Actions style={defaultStyles.eventButtons}>
         <Button
           mode="contained"
           color={colors.accent}
@@ -41,9 +41,9 @@ const EventDetailsScreen = (props) => {
         >
           Go Back
         </Button>
-        <Button mode="contained" color={colors.accent}>
+        {/* <Button mode="contained" color={colors.accent}>
           Add To Cart
-        </Button>
+        </Button> */}
       </Card.Actions>
     </Card>
   );

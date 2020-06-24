@@ -56,6 +56,7 @@ const MagazinesScreen = (props) => {
   }, []); // [loadMagazines]
 
   const onSelect = (selectedYear) => {
+    console.log('working', selectedYear);
     if (selectedYear) {
       const filteredMagazines = allMagazines.filter((magazine) => {
         const [day, month, year] = magazine.date.split('-');

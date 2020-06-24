@@ -57,7 +57,7 @@ const ProductItem = (props) => {
           </Button>
         </Card.Actions>
       )}
-      <Card.Actions style={defaultStyles.rowSpaced}>
+      <Card.Actions style={defaultStyles.shopButtons}>
         <Button
           mode="contained"
           color={colors.accent}
@@ -67,9 +67,9 @@ const ProductItem = (props) => {
         >
           View Details
         </Button>
-        <Button mode="contained" color={colors.accent}>
+        {/* <Button mode="contained" color={colors.accent}>
           Add To Cart
-        </Button>
+        </Button> */}
       </Card.Actions>
     </Card>
   );

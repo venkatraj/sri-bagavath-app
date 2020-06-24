@@ -60,7 +60,7 @@ const MagazineItem = (props) => {
           {moment(`${year}-${month}-${day}`).format('MMMM YYYY')}
         </Title>
       </Card.Content>
-      <Card.Actions style={defaultStyles.centered}>
+      <Card.Actions style={defaultStyles.magazineButton}>
         <Button
           mode="contained"
           color={colors.accent}
