@@ -8,14 +8,12 @@ import defaultStyles from '../../theme/defaultStyles';
 const EventFormScreen = (props) => {
   const { navigation } = props;
   const id = props.route.params.id;
-  const title = id ? 'Edit Event' : 'Add Event';
 
   const onSubmitHandler = () => {
     navigation.goBack();
   };
   return (
     <View>
-      <Title style={defaultStyles.title}>{title}</Title>
       <EventForm onSubmitHandler={onSubmitHandler} id={id} />
     </View>
   );

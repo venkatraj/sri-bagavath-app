@@ -8,14 +8,12 @@ import defaultStyles from '../../theme/defaultStyles';
 const ProductFormScreen = (props) => {
   const { navigation } = props;
   const id = props.route.params.id;
-  const title = id ? 'Edit Product' : 'Add Product';
 
   const onSubmitHandler = () => {
     navigation.goBack();
   };
   return (
     <View>
-      <Title style={defaultStyles.title}>{title}</Title>
       <ProductForm onSubmitHandler={onSubmitHandler} id={id} />
     </View>
   );
