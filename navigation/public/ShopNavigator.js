@@ -13,8 +13,15 @@ const ShopNavigator = (props) => {
   const { navigation } = props;
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="ShopScreen" component={ShopScreen} />
+    <Stack.Navigator headerMode="screen">
+      <Stack.Screen
+        name="ShopScreen"
+        component={ShopScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+          title: 'Products',
+        }}
+      />
       <Stack.Screen
         name="ProductDetails"
         component={ProductDetailsScreen}

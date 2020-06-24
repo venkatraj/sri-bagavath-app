@@ -12,8 +12,15 @@ const MagazinesNavigator = (props) => {
   const { navigation } = props;
 
   return (
-    <Stack.Navigator headerMode="none">
-      <Stack.Screen name="MagazinesScreen" component={MagazinesScreen} />
+    <Stack.Navigator headerMode="screen">
+      <Stack.Screen
+        name="MagazinesScreen"
+        component={MagazinesScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+          title: 'Magazines',
+        }}
+      />
       <Stack.Screen
         name="MagazineForm"
         component={MagazineFormScreen}

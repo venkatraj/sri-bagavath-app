@@ -16,15 +16,16 @@ const HomeStack = createStackNavigator();
 const HomeNavigator = (props) => {
   const { navigation } = props;
   return (
-    <HomeStack.Navigator
-      screenOptions={() => {
-        const handleOnPress = () => navigation.toggleDrawer();
-        return {
-          header: () => <HeaderDrawer onPress={handleOnPress} />,
-        };
-      }}
-    >
-      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          header: (props) => (
+            <HeaderDrawer onPress={() => navigation.toggleDrawer()} />
+          ),
+        }}
+      />
       <HomeStack.Screen
         name="About"
         component={AboutScreen}
@@ -36,34 +37,22 @@ const HomeNavigator = (props) => {
       <HomeStack.Screen
         name="Shop"
         component={ShopNavigator}
-        options={{
-          header: (props) => <HeaderBack {...props} />,
-          title: 'Products',
-        }}
+        options={{ header: () => null }}
       />
       <HomeStack.Screen
         name="Events"
         component={EventsNavigator}
-        options={{
-          header: (props) => <HeaderBack {...props} />,
-          title: 'Events',
-        }}
+        options={{ header: () => null }}
       />
       <HomeStack.Screen
         name="Magazines"
         component={MagazinesNavigator}
-        options={{
-          header: (props) => <HeaderBack {...props} />,
-          title: 'Magazines',
-        }}
+        options={{ header: () => null }}
       />
       <HomeStack.Screen
         name="EBooks"
         component={EBooksNavigator}
-        options={{
-          header: (props) => <HeaderBack {...props} />,
-          title: 'EBooks',
-        }}
+        options={{ header: () => null }}
       />
       <HomeStack.Screen
         name="Contact"

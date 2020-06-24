@@ -25,7 +25,7 @@ console.ignoredYellowBox = ['Setting a timer'];
 const store = configureStore();
 // populateData(store);
 const subscribe = store.subscribe(() => {
-  // console.log(store.getState().user);
+  // console.log(store.getState().magazines);
   // console.log('App');
 });
 

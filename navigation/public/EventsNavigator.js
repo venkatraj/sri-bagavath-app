@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import HeaderBack from '../../components/HeaderBack';
 import EventsScreen from '../../screens/public/EventsScreen';
 import EventDetailsScreen from '../../screens/public/EventDetailsScreen';
 import EventFormScreen from '../../screens/admin/EventFormScreen';
@@ -11,8 +12,15 @@ const EventsNavigator = (props) => {
   const { navigation } = props;
 
   return (
-    <Stack.Navigator headerMode="none">
-      <Stack.Screen name="EventsScreen" component={EventsScreen} />
+    <Stack.Navigator headerMode="screen">
+      <Stack.Screen
+        name="EventsScreen"
+        component={EventsScreen}
+        options={{
+          header: (props) => <HeaderBack {...props} />,
+          title: 'Events',
+        }}
+      />
       <Stack.Screen
         name="EventDetails"
         component={EventDetailsScreen}

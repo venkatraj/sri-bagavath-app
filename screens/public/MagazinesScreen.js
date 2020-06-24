@@ -19,10 +19,13 @@ import { fetchMagazines, deleteMagazine } from '../../store/actions/magazines';
 const MagazinesScreen = (props) => {
   const { navigation } = props;
   const [selectedYear, setSelectedYear] = useState('');
-  const allMagazines = useSelector((state) => state.magazines);
+  const magazines = useSelector((state) => state.magazines);
+  // const [magazines, setMagazines] = useState(
+  //   useSelector((state) => state.magazines)
+  // );
   const user = useSelector((state) => state.user);
   const { isLoggedIn } = user;
-  const [magazines, setMagazines] = useState(allMagazines);
+  const [filteredMagazines, setFilteredMagazines] = useState('');
   const dispatch = useDispatch();
   const [visibility, setVisibility] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
@@ -50,23 +53,20 @@ const MagazinesScreen = (props) => {
     setIsLoading(true);
     loadMagazines().then(() => {
       setIsLoading(false);
-      setMagazines(allMagazines);
     });
-    onSelect('');
-  }, []); // [loadMagazines]
+  }, [loadMagazines]);
 
   const onSelect = (selectedYear) => {
-    console.log('working', selectedYear);
     if (selectedYear) {
-      const filteredMagazines = allMagazines.filter((magazine) => {
+      const selectedMagazines = magazines.filter((magazine) => {
         const [day, month, year] = magazine.date.split('-');
         return (
           new Date(`${year}-${month}-${day}`).getFullYear() === selectedYear
         );
       });
-      setMagazines(filteredMagazines);
+      setFilteredMagazines(selectedMagazines);
     } else {
-      setMagazines(allMagazines);
+      setFilteredMagazines(magazines);
     }
     setSelectedYear(selectedYear);
   };
@@ -150,13 +150,17 @@ const MagazinesScreen = (props) => {
     );
   }
 
+  if (filteredMagazines === '') {
+    setFilteredMagazines(magazines);
+  }
+
   return (
     <View style={defaultStyles.occupy}>
       <View style={defaultStyles.bottomSpace}>
         <FlatList
           onRefresh={loadMagazines}
           refreshing={isRefreshing}
-          data={magazines}
+          data={filteredMagazines || magazines}
           renderItem={renderMagazine}
           ListHeaderComponent={() => (
             <MagazineFilters selectedYear={selectedYear} onSelect={onSelect} />
